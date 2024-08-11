@@ -114,6 +114,12 @@ export default {
   width: 50%;
 }
 
+@media (max-width: 900px) {
+  .en-selected {
+    left: 50%;
+  }
+}
+
 .en-selected {
   right: 0;
   width: 50%;
