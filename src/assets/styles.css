@@ -1,0 +1,32 @@
+/* @font-face {
+  font-family: "CustomFont";
+  src: url("@/assets/bunk-beds.ttf") format("truetype");
+}
+
+body {
+  font-family: "CustomFont", cursive, sans-serif;
+} */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #f8f8f8;
+  padding: 10px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
