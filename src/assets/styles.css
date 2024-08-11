@@ -1,11 +1,11 @@
-/* @font-face {
+@font-face {
   font-family: "CustomFont";
-  src: url("@/assets/bunk-beds.ttf") format("truetype");
+  src: url("@/assets/coolvetica.otf") format("opentype");
 }
 
 body {
-  font-family: "CustomFont", cursive, sans-serif;
-} */
+  font-family: "CustomFont", sans-serif !important;
+}
 
 .navbar {
   position: fixed;
