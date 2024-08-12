@@ -7,6 +7,7 @@
       <li><router-link to="/contact">Contact</router-link></li>
       <switch-button :left-value="nlFlag" :right-value="ukFlag" type="svg" :default-selection="currentLanguage === 'nl' ? 'left' : 'right'" @click="switchLanguage"></switch-button>
       <switch-button left-value="fas fa-sun" right-value="fas fa-moon" type="icon"></switch-button>
+      <switch-button left-value="fas fa-sun" right-value="fas fa-moon" type="txt"></switch-button>
     </ul>
   </nav>
 </template>

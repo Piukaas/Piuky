@@ -11,6 +11,11 @@
         <div class="separator"></div>
         <i :class="[rightValue, { active: currentSelection === 'right' }]" :style="{ color: currentSelection === 'right' ? rightIconColor : '#000' }"></i>
       </template>
+      <template v-else>
+        <span>{{ leftValue }}</span>
+        <div class="separator"></div>
+        <span>{{ rightValue }}</span>
+      </template>
     </div>
     <div class="overlay" :class="overlayClass" :style="overlayStyle"></div>
   </b-button>
@@ -31,7 +36,7 @@ export default {
     type: {
       type: String,
       default: "svg",
-      validator: (value) => ["svg", "icon"].includes(value),
+      validator: (value) => ["svg", "icon", "txt"].includes(value),
     },
     leftColor: {
       type: String,
