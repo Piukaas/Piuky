@@ -81,15 +81,12 @@ export default {
   0% {
     width: 200px;
     height: 40px;
-    border-radius: 50%;
-    background-color: black;
-    color: white;
+    border-radius: 25px;
   }
   100% {
     width: 200px;
     height: 200px;
     border-radius: 25px;
-    background-color: black;
   }
 }
 
@@ -134,16 +131,12 @@ export default {
   0% {
     width: 200px;
     height: 200px;
-    border-radius: 25px;
-    background-color: black;
     color: transparent;
     opacity: 1;
   }
   100% {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    background-color: black;
     opacity: 0;
     color: transparent;
   }
