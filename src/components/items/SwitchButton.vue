@@ -29,7 +29,6 @@
 import Colors from "@/assets/enums/colors";
 
 export default {
-  name: "SwitchButton",
   props: {
     leftValue: {
       type: String,
@@ -154,6 +153,11 @@ export default {
 
 .is-primary:focus {
   outline: none !important;
+}
+
+.icon-size {
+  width: 24px;
+  height: 24px;
 }
 
 .switch-button img.active,

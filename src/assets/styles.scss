@@ -22,6 +22,10 @@ $colors: (
   "custom": #ff69b4,
 );
 
+img {
+  user-select: none;
+}
+
 .navbar {
   position: fixed;
   top: 0;
