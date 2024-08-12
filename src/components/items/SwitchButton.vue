@@ -2,19 +2,23 @@
   <b-button rounded class="is-primary switch-button" @click="toggle" @mouseover="hover = true" @mouseleave="hover = false">
     <div class="switch-container">
       <template v-if="type === 'svg'">
-        <img :src="leftValue" :class="{ active: currentSelection === 'left' }" :style="[leftStyle, hover && currentSelection === 'right' ? hoverOppositeStyle : {}]" class="icon-size" />
+        <img :src="leftValue" :class="{ active: currentSelection === 'left' }" :style="[leftStyle, hover && currentSelection === 'right' && !isMobile ? hoverOppositeStyle : {}]" class="icon-size" />
         <div class="separator"></div>
-        <img :src="rightValue" :class="{ active: currentSelection === 'right' }" :style="[rightStyle, hover && currentSelection === 'left' ? hoverOppositeStyle : {}]" class="icon-size" />
+        <img :src="rightValue" :class="{ active: currentSelection === 'right' }" :style="[rightStyle, hover && currentSelection === 'left' && !isMobile ? hoverOppositeStyle : {}]" class="icon-size" />
       </template>
       <template v-else-if="type === 'icon'">
-        <i :class="[leftValue, { active: currentSelection === 'left' }]" :style="[leftStyle, hover && currentSelection === 'right' ? hoverOppositeStyle : {}]"></i>
+        <i :class="[leftValue, { active: currentSelection === 'left' }]" :style="[leftStyle, hover && currentSelection === 'right' && !isMobile ? hoverOppositeStyle : {}]"></i>
         <div class="separator"></div>
-        <i :class="[rightValue, { active: currentSelection === 'right' }]" :style="[rightStyle, hover && currentSelection === 'left' ? hoverOppositeStyle : {}]"></i>
+        <i :class="[rightValue, { active: currentSelection === 'right' }]" :style="[rightStyle, hover && currentSelection === 'left' && !isMobile ? hoverOppositeStyle : {}]"></i>
       </template>
       <template v-else>
-        <span :class="{ 'switch-txt': true, active: currentSelection === 'left' }" :style="[leftStyle, hover && currentSelection === 'right' ? hoverOppositeStyle : {}]">{{ leftValue }}</span>
+        <span :class="{ 'switch-txt': true, active: currentSelection === 'left' }" :style="[leftStyle, hover && currentSelection === 'right' && !isMobile ? hoverOppositeStyle : {}]">{{
+          leftValue
+        }}</span>
         <div class="separator"></div>
-        <span :class="{ 'switch-txt': true, active: currentSelection === 'right' }" :style="[rightStyle, hover && currentSelection === 'left' ? hoverOppositeStyle : {}]">{{ rightValue }}</span>
+        <span :class="{ 'switch-txt': true, active: currentSelection === 'right' }" :style="[rightStyle, hover && currentSelection === 'left' && !isMobile ? hoverOppositeStyle : {}]">{{
+          rightValue
+        }}</span>
       </template>
     </div>
     <div class="overlay" :class="overlayClass" :style="overlayStyle"></div>
@@ -67,6 +71,7 @@ export default {
       currentSelection: this.defaultSelection,
       hover: false,
       Colors,
+      isMobile: window.innerWidth <= 900,
     };
   },
   computed: {
@@ -95,7 +100,7 @@ export default {
     },
     hoverOppositeStyle() {
       return {
-        color: this.currentSelection === "left" ? this.leftTxtColor : this.rightTxtColor,
+        color: this.currentSelection === "right" ? this.rightTxtColor : this.leftTxtColor,
       };
     },
   },
@@ -103,6 +108,15 @@ export default {
     toggle() {
       this.currentSelection = this.currentSelection === "left" ? "right" : "left";
     },
+    handleResize() {
+      this.isMobile = window.innerWidth <= 900;
+    },
+  },
+  mounted() {
+    window.addEventListener("resize", this.handleResize);
+  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.handleResize);
   },
 };
 </script>
