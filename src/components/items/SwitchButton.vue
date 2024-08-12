@@ -7,9 +7,9 @@
         <img :src="rightValue" alt="Right Image" :class="{ active: currentSelection === 'right' }" class="icon-size" />
       </template>
       <template v-else-if="type === 'icon'">
-        <i :class="[leftValue, { active: currentSelection === 'left' }]" :style="{ color: currentSelection === 'left' ? leftIconColor : '#000' }"></i>
+        <i :class="[leftValue, { active: currentSelection === 'left' }]"></i>
         <div class="separator"></div>
-        <i :class="[rightValue, { active: currentSelection === 'right' }]" :style="{ color: currentSelection === 'right' ? rightIconColor : '#000' }"></i>
+        <i :class="[rightValue, { active: currentSelection === 'right' }]"></i>
       </template>
       <template v-else>
         <span>{{ leftValue }}</span>
@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import Colors from "@/assets/enums/colors";
+
 export default {
   name: "SwitchButton",
   props: {
@@ -40,19 +42,11 @@ export default {
     },
     leftColor: {
       type: String,
-      default: "#ffc107",
+      default: Colors.YELLOW,
     },
     rightColor: {
       type: String,
-      default: "#ffc107",
-    },
-    leftIconColor: {
-      type: String,
-      default: "#000",
-    },
-    rightIconColor: {
-      type: String,
-      default: "#000",
+      default: Colors.YELLOW,
     },
     defaultSelection: {
       type: String,
@@ -63,6 +57,7 @@ export default {
   data() {
     return {
       currentSelection: this.defaultSelection,
+      Colors,
     };
   },
   computed: {
@@ -109,6 +104,7 @@ export default {
 .switch-button i {
   opacity: 0.5;
   transition: opacity 0.5s ease;
+  color: black;
 }
 
 .is-primary {
@@ -172,7 +168,7 @@ export default {
   }
 }
 
-@media (max-width: 899px) {
+@media (max-width: 900px) {
   .right-selected {
     left: 50%;
   }
