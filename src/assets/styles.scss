@@ -76,46 +76,55 @@ body {
 
   &:hover {
     color: $text-color !important;
-    box-shadow: inset 0 0 0 2px $background-color !important;
+    border: 2px solid $background-color !important;
   }
 }
 
+.round-btn {
+  border-radius: 100% !important;
+}
+
+button {
+  border-radius: 25px !important;
+}
+
+.btn {
+  transition: all 0.75s ease-in-out !important;
+}
+
 @mixin dynamic-colors($color-name, $color-value) {
-  .is-#{$color-name} {
+  .btn-#{$color-name} {
     position: relative;
     background-color: $color-value !important;
     $dark-color: get-css-var("#{$color-name}-dark");
-    border: 0px solid black !important;
     color: white !important;
     overflow: hidden;
     z-index: 1;
-    transition: 0.75s ease-in-out;
-    box-shadow: inset 0 0 0 2px $color-value !important;
+    border: 2px solid $color-value !important;
 
     @include hover-effect($dark-color, rgba(255, 255, 255, 0.75));
   }
 
-  .is-round {
-    border-radius: 100% !important;
-    width: 0 !important;
-  }
-
-  .is-#{$color-name}.is-light {
+  .btn-light-#{$color-name} {
     position: relative;
     $light-color: get-css-var("#{$color-name}-light");
     background-color: $light-color !important;
     $dark-color: get-css-var("#{$color-name}-dark");
     color: $dark-color !important;
-    box-shadow: inset 0 0 0 2px $dark-color;
+    border: 2px solid $dark-color;
+    overflow: hidden;
+    z-index: 1;
 
     @include hover-effect($dark-color, #fff);
   }
 
-  .is-#{$color-name}.is-outlined {
+  .btn-outline-#{$color-name} {
     position: relative;
     background-color: transparent !important;
-    box-shadow: inset 0 0 0 2px $color-value !important;
+    border: 2px solid $color-value !important;
     color: $color-value !important;
+    overflow: hidden;
+    z-index: 1;
 
     @include hover-effect($color-value, #fff);
   }
@@ -134,7 +143,7 @@ body {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #f8f8f8;
+  background-color: var(--light);
   padding: 10px;
 }
 

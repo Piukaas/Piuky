@@ -17,6 +17,8 @@
         :default-selection="currentTheme === 'light' ? 'left' : 'right'"
         @click="switchTheme"
       />
+      <button type="button" class="btn btn-outline-primary button-margin">Primary</button>
+
       <switch-button left-value="Hoi" left-color="yellow" right-value="Doei" right-color="black" right-txt-color="white" type="txt" />
     </ul>
   </nav>

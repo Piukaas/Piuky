@@ -1,40 +1,40 @@
 <template>
   <NavBar />
   <h1>{{ $t("hello_world") }}</h1>
-  <b-button rounded class="button-margin" type="is-primary">Primary</b-button>
-  <b-button rounded icon-pack="fa" icon-left="skull" class="button-margin is-round" type="is-primary"></b-button>
-  <b-button rounded class="button-margin" type="is-primary" outlined>Primary Outlined</b-button>
-  <b-button rounded class="button-margin" type="is-primary is-light">Primary Light</b-button>
+  <button type="button" class="btn btn-primary button-margin">Primary</button>
+  <button type="button" class="btn btn-primary button-margin round-btn"><i class="fa fa-skull"></i></button>
+  <button type="button" class="btn btn-outline-primary button-margin">Primary Outlined</button>
+  <button type="button" class="btn btn-light-primary button-margin">Primary Light</button>
 
-  <b-button rounded class="button-margin" type="is-secondary">Secondary</b-button>
-  <b-button rounded icon-pack="fa" icon-left="skull" class="button-margin is-round" type="is-secondary"></b-button>
-  <b-button rounded class="button-margin" type="is-secondary" outlined>Secondary Outlined</b-button>
-  <b-button rounded class="button-margin" type="is-secondary is-light">Secondary Light</b-button>
+  <button type="button" class="btn btn-secondary button-margin">Secondary</button>
+  <button type="button" class="btn btn-secondary button-margin round-btn"><i class="fa fa-skull"></i></button>
+  <button type="button" class="btn btn-outline-secondary button-margin">Secondary Outlined</button>
+  <button type="button" class="btn btn-light-secondary button-margin">Secondary Light</button>
 
-  <b-button rounded class="button-margin" type="is-blackwhite">Blackwhite</b-button>
-  <b-button rounded icon-pack="fa" icon-left="skull" class="button-margin is-round" type="is-blackwhite"></b-button>
-  <b-button rounded class="button-margin" type="is-blackwhite" outlined>Blackwhite Outlined</b-button>
-  <b-button rounded class="button-margin" type="is-blackwhite is-light">Blackwhite Light</b-button>
+  <button type="button" class="btn btn-blackwhite button-margin">Blackwhite</button>
+  <button type="button" class="btn btn-blackwhite button-margin round-btn"><i class="fa fa-skull"></i></button>
+  <button type="button" class="btn btn-outline-blackwhite button-margin">Blackwhite Outlined</button>
+  <button type="button" class="btn btn-light-blackwhite button-margin">Blackwhite Light</button>
 
-  <b-button rounded class="button-margin" type="is-success">Success</b-button>
-  <b-button rounded class="button-margin" type="is-success" outlined>Success Outlined</b-button>
-  <b-button rounded class="button-margin" type="is-success is-light">Success Light</b-button>
+  <button type="button" class="btn btn-success button-margin">Success</button>
+  <button type="button" class="btn btn-outline-success button-margin">Success Outlined</button>
+  <button type="button" class="btn btn-light-success button-margin">Success Light</button>
 
-  <b-button rounded class="button-margin" type="is-danger">Danger</b-button>
-  <b-button rounded class="button-margin" type="is-danger" outlined>Danger Outlined</b-button>
-  <b-button rounded class="button-margin" type="is-danger is-light">Danger Light</b-button>
+  <button type="button" class="btn btn-danger button-margin">Danger</button>
+  <button type="button" class="btn btn-outline-danger button-margin">Danger Outlined</button>
+  <button type="button" class="btn btn-light-danger button-margin">Danger Light</button>
 
-  <b-button rounded class="button-margin" type="is-warning">Warning</b-button>
-  <b-button rounded class="button-margin" type="is-warning" outlined>Warning Outlined</b-button>
-  <b-button rounded class="button-margin" type="is-warning is-light">Warning Light</b-button>
+  <button type="button" class="btn btn-warning button-margin">Warning</button>
+  <button type="button" class="btn btn-outline-warning button-margin">Warning Outlined</button>
+  <button type="button" class="btn btn-light-warning button-margin">Warning Light</button>
 
-  <b-button rounded class="button-margin" type="is-info">Info</b-button>
-  <b-button rounded class="button-margin" type="is-info" outlined>Info Outlined</b-button>
-  <b-button rounded class="button-margin" type="is-info is-light">Info Light</b-button>
+  <button type="button" class="btn btn-info button-margin">Info</button>
+  <button type="button" class="btn btn-outline-info button-margin">Info Outlined</button>
+  <button type="button" class="btn btn-light-info button-margin">Info Light</button>
 
-  <b-button rounded class="button-margin" type="is-link">Link</b-button>
-  <b-button rounded class="button-margin" type="is-link" outlined>Link Outlined</b-button>
-  <b-button rounded class="button-margin" type="is-link is-light">Link Light</b-button><br />
+  <button type="button" class="btn btn-link button-margin">Link</button>
+  <button type="button" class="btn btn-outline-link button-margin">Link Outlined</button>
+  <button type="button" class="btn btn-light-link button-margin">Link Light</button><br />
 
   <b-rate icon-pack="fas" @change="danger"></b-rate>
   <img alt="Vue logo" src="./assets/logo.png" />

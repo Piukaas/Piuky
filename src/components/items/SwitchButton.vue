@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="btn btn-switch switch-button" :style="borderStyle" @click="toggle" @mouseover="hover = true" @mouseleave="hover = false">
+  <button type="button" class="btn btn-switch switch-button" @click="toggle" @mouseover="hover = true" @mouseleave="hover = false">
     <div class="switch-container">
       <template v-if="type === 'svg'">
         <img :src="leftValue" :class="{ active: currentSelection === 'left' }" :style="[leftStyle, hover && currentSelection === 'right' && !isMobile ? hoverOppositeStyle : {}]" class="icon-size" />
@@ -149,10 +149,6 @@ export default {
   background-color: transparent !important;
   border: 2px solid black !important;
   color: black !important;
-}
-
-.btn-switch:focus {
-  outline: none !important;
 }
 
 .icon-size {
