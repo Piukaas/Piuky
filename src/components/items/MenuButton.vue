@@ -1,9 +1,9 @@
 <template>
   <div>
     <!-- Morphing button -->
-    <b-button v-if="!isMenuOpen && !isMorphingBack" rounded class="is-blackwhite menu-button" @click="toggleMenu" :class="{ morphing: isMorphing }">
+    <button type="button" v-if="!isMenuOpen && !isMorphingBack" rounded class="btn btn-switch menu-button" @click="toggleMenu" :class="{ morphing: isMorphing }">
       <i class="fa fa-hamburger"></i>
-    </b-button>
+    </button>
 
     <!-- Menu with overlay -->
     <div v-else class="overlay" @click="toggleMenu">
