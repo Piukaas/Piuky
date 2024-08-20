@@ -45,6 +45,19 @@ function changeLanguage(locale) {
 // Make the changeLanguage function available globally
 app.config.globalProperties.$changeLanguage = changeLanguage;
 
+// Theme toggle function
+function changeTheme(theme) {
+  document.body.setAttribute("theme", theme);
+  localStorage.setItem("theme", theme);
+}
+
+// Make the changeTheme function available globally
+app.config.globalProperties.$changeTheme = changeTheme;
+
+// Set initial theme based on saved preference or default to light
+const savedTheme = localStorage.getItem("theme") || "light";
+document.body.setAttribute("theme", savedTheme);
+
 app.use(router);
 app.use(i18n);
 app.use(Buefy);

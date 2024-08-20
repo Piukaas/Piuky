@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Morphing button -->
-    <b-button v-if="!isMenuOpen && !isMorphingBack" rounded class="is-secondary menu-button" @click="toggleMenu" :class="{ morphing: isMorphing }">
+    <b-button v-if="!isMenuOpen && !isMorphingBack" rounded class="is-blackwhite menu-button" @click="toggleMenu" :class="{ morphing: isMorphing }">
       <i class="fa fa-hamburger"></i>
     </b-button>
 
