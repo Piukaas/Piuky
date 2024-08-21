@@ -8,6 +8,7 @@
 body {
   font-family: "CustomFont", sans-serif !important;
   background-color: var(--background) !important;
+  transition: all 0.75s ease-in-out;
 }
 
 :root {

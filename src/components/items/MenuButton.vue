@@ -12,6 +12,21 @@
         <i class="fa fa-x close" @click="toggleMenu"></i>
         <ul class="menu-items">
           <li v-for="(item, index) in menuItems" :key="index">{{ item }}</li>
+          <li>
+            <switch-button colorClass="warning" :left-value="nlFlag" :right-value="ukFlag" type="svg" :default-selection="currentLanguage === 'nl' ? 'left' : 'right'" @click="switchLanguage" />
+          </li>
+          <li>
+            <switch-button
+              left-value="fas fa-sun"
+              left-color="yellow"
+              right-value="fas fa-moon"
+              right-color="darkblue"
+              right-txt-color="yellow"
+              type="icon"
+              :default-selection="currentTheme === 'light' ? 'left' : 'right'"
+              @click="switchTheme"
+            />
+          </li>
         </ul>
       </div>
     </div>
@@ -19,13 +34,25 @@
 </template>
 
 <script>
+import nlFlag from "@/assets/svg/nl-flag.svg";
+import ukFlag from "@/assets/svg/uk-flag.svg";
+import SwitchButton from "@/components/items/SwitchButton.vue";
+
 export default {
+  components: {
+    SwitchButton,
+  },
+
   data() {
     return {
       isMenuOpen: false,
       isMorphing: false,
       isMorphingBack: false,
       menuItems: ["Item 1", "Item 2", "Item 3", "Item 4"],
+      currentLanguage: localStorage.getItem("locale") || "nl",
+      currentTheme: localStorage.getItem("theme") || "light",
+      nlFlag,
+      ukFlag,
     };
   },
   methods: {
@@ -43,6 +70,16 @@ export default {
           this.isMorphingBack = false;
         }, 300); // Adjust the timeout to match reverse animation duration
       }
+    },
+
+    switchLanguage() {
+      this.currentLanguage = this.currentLanguage === "nl" ? "en" : "nl";
+      this.$changeLanguage(this.currentLanguage);
+    },
+
+    switchTheme() {
+      this.currentTheme = this.currentTheme === "light" ? "dark" : "light";
+      this.$changeTheme(this.currentTheme);
     },
   },
 };

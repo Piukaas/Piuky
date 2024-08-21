@@ -2,23 +2,19 @@
   <button type="button" class="btn btn-switch switch-button" @click="toggle" @mouseover="hover = true" @mouseleave="hover = false">
     <div class="switch-container">
       <template v-if="type === 'svg'">
-        <img :src="leftValue" :class="{ active: currentSelection === 'left' }" :style="[leftStyle, hover && currentSelection === 'right' && !isMobile ? hoverOppositeStyle : {}]" class="icon-size" />
+        <img :src="leftValue" :class="{ active: currentSelection === 'left' }" :style="[leftStyle, hover && hoverStyle]" class="icon-size" />
         <div class="separator"></div>
-        <img :src="rightValue" :class="{ active: currentSelection === 'right' }" :style="[rightStyle, hover && currentSelection === 'left' && !isMobile ? hoverOppositeStyle : {}]" class="icon-size" />
+        <img :src="rightValue" :class="{ active: currentSelection === 'right' }" :style="[rightStyle, hover && hoverStyle]" class="icon-size" />
       </template>
       <template v-else-if="type === 'icon'">
-        <i :class="[leftValue, { active: currentSelection === 'left' }]" :style="[leftStyle, hover && currentSelection === 'right' && !isMobile ? hoverOppositeStyle : {}]"></i>
+        <i :class="[leftValue, { active: currentSelection === 'left' }]" :style="[leftStyle, hover && hoverStyle]"></i>
         <div class="separator"></div>
-        <i :class="[rightValue, { active: currentSelection === 'right' }]" :style="[rightStyle, hover && currentSelection === 'left' && !isMobile ? hoverOppositeStyle : {}]"></i>
+        <i :class="[rightValue, { active: currentSelection === 'right' }]" :style="[rightStyle, hover && hoverStyle]"></i>
       </template>
       <template v-else>
-        <span :class="{ 'switch-txt': true, active: currentSelection === 'left' }" :style="[leftStyle, hover && currentSelection === 'right' && !isMobile ? hoverOppositeStyle : {}]">{{
-          leftValue
-        }}</span>
+        <span :class="{ 'switch-txt': true, active: currentSelection === 'left' }" :style="[leftStyle, hover && hoverStyle]">{{ leftValue }}</span>
         <div class="separator"></div>
-        <span :class="{ 'switch-txt': true, active: currentSelection === 'right' }" :style="[rightStyle, hover && currentSelection === 'left' && !isMobile ? hoverOppositeStyle : {}]">{{
-          rightValue
-        }}</span>
+        <span :class="{ 'switch-txt': true, active: currentSelection === 'right' }" :style="[rightStyle, hover && hoverStyle]">{{ rightValue }}</span>
       </template>
     </div>
     <div class="overlay" :class="overlayClass" :style="overlayStyle"></div>
@@ -43,26 +39,15 @@ export default {
       default: "svg",
       validator: (value) => ["svg", "icon", "txt"].includes(value),
     },
-    leftColor: {
+    colorClass: {
       type: String,
-      default: Colors.YELLOW,
-    },
-    rightColor: {
-      type: String,
-      default: Colors.YELLOW,
+      default: "primary",
+      validator: (value) => ["primary", "secondary", "blackwhite", "success", "danger", "warning", "info", "link"].includes(value),
     },
     defaultSelection: {
       type: String,
       default: "left",
       validator: (value) => ["left", "right"].includes(value),
-    },
-    leftTxtColor: {
-      type: String,
-      default: "black",
-    },
-    rightTxtColor: {
-      type: String,
-      default: "black",
     },
   },
   data() {
@@ -76,7 +61,7 @@ export default {
   computed: {
     overlayStyle() {
       return {
-        backgroundColor: this.currentSelection === "left" ? this.leftColor : this.rightColor,
+        backgroundColor: `var(--${this.colorClass})`,
       };
     },
     overlayClass() {
@@ -87,19 +72,19 @@ export default {
         "border-left": this.currentSelection === "right",
       };
     },
+    hoverStyle() {
+      return {
+        color: "white",
+      };
+    },
     leftStyle() {
       return {
-        color: this.currentSelection === "left" ? this.leftTxtColor : "inherit",
+        color: this.currentSelection === "left" ? "white" : "black",
       };
     },
     rightStyle() {
       return {
-        color: this.currentSelection === "right" ? this.rightTxtColor : "inherit",
-      };
-    },
-    hoverOppositeStyle() {
-      return {
-        color: this.currentSelection === "right" ? this.rightTxtColor : this.leftTxtColor,
+        color: this.currentSelection === "right" ? "white" : "black",
       };
     },
   },
@@ -141,11 +126,10 @@ export default {
 .switch-button .switch-txt {
   opacity: 0.5;
   transition: opacity 0.5s ease, color 0.5s ease;
-  color: black;
 }
 
 .btn-switch {
-  background-color: transparent !important;
+  background-color: white !important;
   border: 2px solid black !important;
   color: black !important;
 }
