@@ -25,7 +25,10 @@ export default {
   },
   methods: {
     moveVan() {
-      this.isVanMoved = !this.isVanMoved;
+      this.isVanMoved = true;
+      setTimeout(() => {
+        this.isVanMoved = false;
+      }, 1500);
     },
   },
 };
@@ -42,7 +45,7 @@ export default {
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .logo-container {
     width: 40%;
   }
