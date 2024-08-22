@@ -36,9 +36,6 @@
   <button type="button" class="btn btn-outline-link button-margin">Link Outlined</button>
   <button type="button" class="btn btn-light-link button-margin">Link Light</button><br />
 
-  <b-rate icon-pack="fas" @change="danger"></b-rate>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <i class="fas fa-user-secret"></i>
   <router-view></router-view>
 </template>
 

@@ -97,15 +97,14 @@ export default {
   justify-content: center;
   cursor: pointer;
   z-index: 1001;
-  background-color: black;
-  color: white;
+  border: 2px solid #05384b;
+  background-color: #f6f0e0 !important;
+  color: #05384b !important;
   border-radius: 50%;
   transition: all 0.3s ease;
 }
 
 .menu-button:hover {
-  background-color: black !important;
-  color: white !important;
   width: 200px;
   transition: all 0.3s ease;
 }
@@ -122,7 +121,7 @@ export default {
   }
   100% {
     width: 200px;
-    height: 200px;
+    height: 350px;
     border-radius: 25px;
   }
 }
@@ -151,9 +150,10 @@ export default {
   top: 20px;
   right: 20px;
   width: 200px;
-  height: auto;
-  background-color: black;
-  color: white;
+  height: 350px;
+  border: 2px solid #05384b;
+  background-color: #f6f0e0 !important;
+  color: #05384b !important;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -170,7 +170,7 @@ export default {
 @keyframes morphBackToButton {
   0% {
     width: 200px;
-    height: 200px;
+    height: 350px;
     color: transparent;
     opacity: 1;
   }

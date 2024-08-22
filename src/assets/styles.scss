@@ -8,18 +8,19 @@
 body {
   font-family: "CustomFont", sans-serif !important;
   background-color: var(--background) !important;
+  color: var(--blackwhite) !important;
   transition: all 0.75s ease-in-out;
 }
 
 :root {
-  --background: #fff;
-  --primary: #007bff;
-  --primary-light: #cfe2ff;
-  --primary-dark: #0056b3;
+  --background: #f6f0e0;
+  --primary: #67cec0;
+  --primary-light: #63d0bc;
+  --primary-dark: #45a69c;
   --secondary: #6c757d;
   --secondary-light: #d6d8db;
   --secondary-dark: #545b62;
-  --blackwhite: #000;
+  --blackwhite: #05384b;
   --blackwhite-light: #f8f9fa;
   --blackwhite-dark: #212529;
   --success: #28a745;
@@ -44,9 +45,8 @@ body {
 }
 
 [theme="dark"] {
-  --background: #363636;
-  --primary: #17a2b8;
-  --primary-light: #a3d8e8;
+  --background: #05384b;
+  --blackwhite: #f6f0e0;
   --warning: #ffca2c;
   --warning-light: #fff3c4;
   --warning-dark: #ffbb00;
