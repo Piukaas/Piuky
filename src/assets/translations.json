@@ -1,6 +1,22 @@
 {
-  "hello_world": {
-    "nl": "Hallo Wereld",
-    "en": "Hello World"
+  "account": {
+    "nl": "Account",
+    "en": "Account"
+  },
+  "movies": {
+    "nl": "Films",
+    "en": "Movies"
+  },
+  "games": {
+    "nl": "Spelletjes",
+    "en": "Games"
+  },
+  "maths": {
+    "nl": "Wiskunde",
+    "en": "Maths"
+  },
+  "drawings": {
+    "nl": "Tekeningen",
+    "en": "Drawings"
   }
 }

@@ -9,7 +9,10 @@
       <!-- Menu Content -->
       <i class="fa fa-x close" @click="toggleMenu"></i>
       <ul class="menu-items">
+        <li><i class="fa-solid fa-user-astronaut"></i> {{ $t("account") }}</li>
+        <hr />
         <li v-for="(item, index) in menuItems" :key="index">{{ item }}</li>
+        <hr />
         <li>
           <switch-button colorClass="warning" :left-value="nlFlag" :right-value="ukFlag" type="svg" :default-selection="currentLanguage === 'nl' ? 'left' : 'right'" @click="switchLanguage" />
         </li>
@@ -162,7 +165,7 @@ export default {
   left: 20px;
   width: 200px;
   height: 350px;
-  border: 2px solid #05384b;
+  border: 3px solid #05384b !important;
   background-color: #f6f0e0 !important;
   color: #05384b !important;
   display: flex;
