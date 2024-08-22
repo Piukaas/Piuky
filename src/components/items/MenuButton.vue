@@ -89,7 +89,7 @@ export default {
 .menu-button {
   position: fixed;
   top: 20px;
-  left: 20px;
+  right: 20px;
   width: 40px;
   height: 40px;
   display: flex;
@@ -139,7 +139,7 @@ export default {
 .overlay {
   position: fixed;
   top: 0;
-  left: 0;
+  right: 0;
   width: 100%;
   height: 100%;
   padding: 20px;
@@ -147,6 +147,9 @@ export default {
 }
 
 .menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
   width: 200px;
   height: auto;
   background-color: black;
