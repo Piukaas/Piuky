@@ -3,13 +3,19 @@
     <img :src="Clouds" class="logo" />
     <img :src="Van" class="logo van" :class="{ 'move-left': isVanMoved }" />
   </div>
+  <menu-button />
 </template>
 
 <script>
+import MenuButton from "@/components/items/MenuButton.vue";
 import Clouds from "@/assets/clouds.png";
 import Van from "@/assets/van.png";
 
 export default {
+  components: {
+    MenuButton,
+  },
+
   data() {
     return {
       Clouds,
@@ -34,6 +40,12 @@ export default {
   z-index: 2;
   width: 15%;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .logo-container {
+    width: 40%;
+  }
 }
 
 .logo {
