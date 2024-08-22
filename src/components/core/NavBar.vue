@@ -1,10 +1,8 @@
 <template>
-  <nav class="navbar">
-    <menu-button />
-    <router-link to="/fortnite" class="logo-container">
-      <img :src="Logo" alt="logo" class="logo" />
-    </router-link>
-  </nav>
+  <menu-button />
+  <router-link to="/fortnite">
+    <img :src="Logo" alt="logo" class="logo" />
+  </router-link>
 </template>
 
 <script>
@@ -25,19 +23,9 @@ export default {
 </script>
 
 <style scoped>
-.navbar {
-  position: fixed;
-  background-color: transparent !important;
-  width: 100%;
-}
-
-.logo-container {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-}
-
 .logo {
+  position: fixed;
+  z-index: 2;
   width: 15%;
 }
 </style>
