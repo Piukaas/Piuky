@@ -96,7 +96,7 @@ button {
 
 .btn:focus {
   outline: none !important;
-  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5) !important;
+  scale: 1.05;
 }
 
 @mixin dynamic-colors($color-name, $color-value) {
