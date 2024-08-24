@@ -1,20 +1,20 @@
 <template>
   <button type="button" class="btn btn-switch switch-button" @click="toggle" @mouseover="handleMouseOver" @mouseleave="handleMouseLeave">
     <div class="switch-container">
-      <template v-if="type === 'svg'">
-        <img :src="leftValue" :class="{ active: currentSelection === 'left' }" :style="[leftStyle, hover && hoverStyle]" class="icon-size" />
+      <template v-if="type === SwitchTypes.SVG">
+        <img :src="leftValue" class="flag-size" :class="{ active: currentSelection === Directions.LEFT }" :style="[leftStyle, hover && hoverStyle]" />
         <div class="separator"></div>
-        <img :src="rightValue" :class="{ active: currentSelection === 'right' }" :style="[rightStyle, hover && hoverStyle]" class="icon-size" />
+        <img :src="rightValue" class="flag-size" :class="{ active: currentSelection === Directions.RIGHT }" :style="[rightStyle, hover && hoverStyle]" />
       </template>
-      <template v-else-if="type === 'icon'">
-        <i :class="[leftValue, { active: currentSelection === 'left' }]" :style="[leftStyle, hover && hoverStyle]"></i>
+      <template v-else-if="type === SwitchTypes.ICON">
+        <i class="icon-size" :class="[leftValue, { active: currentSelection === Directions.LEFT }]" :style="[leftStyle, hover && hoverStyle]"></i>
         <div class="separator"></div>
-        <i :class="[rightValue, { active: currentSelection === 'right' }]" :style="[rightStyle, hover && hoverStyle]"></i>
+        <i class="icon-size" :class="[rightValue, { active: currentSelection === Directions.RIGHT }]" :style="[rightStyle, hover && hoverStyle]"></i>
       </template>
       <template v-else>
-        <span :class="{ 'switch-txt': true, active: currentSelection === 'left' }" :style="[leftStyle, hover && hoverStyle]">{{ leftValue }}</span>
+        <span :class="{ 'switch-txt': true, active: currentSelection === Directions.LEFT }" :style="[leftStyle, hover && hoverStyle]">{{ leftValue }}</span>
         <div class="separator"></div>
-        <span :class="{ 'switch-txt': true, active: currentSelection === 'right' }" :style="[rightStyle, hover && hoverStyle]">{{ rightValue }}</span>
+        <span :class="{ 'switch-txt': true, active: currentSelection === Directions.RIGHT }" :style="[rightStyle, hover && hoverStyle]">{{ rightValue }}</span>
       </template>
     </div>
     <div class="overlay" :class="overlayClass" :style="overlayStyle"></div>
@@ -22,7 +22,9 @@
 </template>
 
 <script>
-import Colors from "@/assets/enums/colors";
+import Directions from "@/assets/enums/directions";
+import SwitchTypes from "@/assets/enums/switch-types";
+import ColorClasses from "@/assets/enums/color-classes";
 
 export default {
   props: {
@@ -36,79 +38,94 @@ export default {
     },
     type: {
       type: String,
-      default: "svg",
-      validator: (value) => ["svg", "icon", "txt"].includes(value),
+      default: SwitchTypes.ICON,
+      validator: (value) => [SwitchTypes.SVG, SwitchTypes.ICON, SwitchTypes.TEXT].includes(value),
     },
     colorClass: {
       type: String,
-      default: "primary",
-      validator: (value) => ["primary", "secondary", "blackwhite", "success", "danger", "warning", "info", "link"].includes(value),
+      default: ColorClasses.PRIMARY,
+      validator: (value) =>
+        [ColorClasses.PRIMARY, ColorClasses.SECONDARY, ColorClasses.BLACKWHITE, ColorClasses.WARNING, ColorClasses.DANGER, ColorClasses.SUCCESS, ColorClasses.INFO, ColorClasses.LINK].includes(value),
     },
     defaultSelection: {
       type: String,
-      default: "left",
-      validator: (value) => ["left", "right"].includes(value),
+      default: Directions.LEFT,
+      validator: (value) => [Directions.LEFT, Directions.RIGHT].includes(value),
     },
   },
+
   data() {
     return {
       currentSelection: this.defaultSelection,
       hover: false,
-      Colors,
       isMobile: window.innerWidth <= 900,
+      Directions,
+      SwitchTypes,
+      ColorClasses,
     };
   },
+
+  mounted() {
+    window.addEventListener("resize", this.handleResize);
+  },
+
+  beforeUnmount() {
+    window.removeEventListener("resize", this.handleResize);
+  },
+
   computed: {
     overlayStyle() {
       return {
         backgroundColor: `var(--${this.colorClass})`,
       };
     },
+
     overlayClass() {
       return {
-        "left-selected": this.currentSelection === "left",
-        "right-selected": this.currentSelection === "right",
-        "border-right": this.currentSelection === "left",
-        "border-left": this.currentSelection === "right",
+        "left-selected": this.currentSelection === Directions.LEFT,
+        "right-selected": this.currentSelection === Directions.RIGHT,
+        "border-right": this.currentSelection === Directions.LEFT,
+        "border-left": this.currentSelection === Directions.RIGHT,
       };
     },
+
     hoverStyle() {
-      return this.isMobile ? {} : { color: "white" };
+      return this.isMobile ? {} : { color: "var(--white)" };
     },
+
     leftStyle() {
       return {
-        color: this.currentSelection === "left" ? "white" : "black",
+        color: this.currentSelection === Directions.LEFT ? "var(--white)" : "var(--black)",
       };
     },
+
     rightStyle() {
       return {
-        color: this.currentSelection === "right" ? "white" : "black",
+        color: this.currentSelection === Directions.RIGHT ? "var(--white)" : "var(--black)",
       };
     },
   },
+
   methods: {
     toggle() {
-      this.currentSelection = this.currentSelection === "left" ? "right" : "left";
+      this.currentSelection = this.currentSelection === Directions.LEFT ? Directions.RIGHT : Directions.LEFT;
     },
+
     handleResize() {
       this.isMobile = window.innerWidth <= 900;
     },
+
     handleMouseOver() {
       if (!this.isMobile) {
         this.hover = true;
       }
     },
+
     handleMouseLeave() {
       if (!this.isMobile) {
         this.hover = false;
       }
     },
-  },
-  mounted() {
-    window.addEventListener("resize", this.handleResize);
-  },
-  beforeUnmount() {
-    window.removeEventListener("resize", this.handleResize);
   },
 };
 </script>
@@ -125,6 +142,7 @@ export default {
 .switch-container {
   display: flex;
   align-items: center;
+  justify-content: center;
   position: relative;
   z-index: 1;
 }
@@ -137,12 +155,23 @@ export default {
 }
 
 .btn-switch {
-  background-color: white !important;
-  border: 2px solid black !important;
-  color: black !important;
+  background-color: var(--white) !important;
+  border: 2px solid var(--black) !important;
+  color: var(--black) !important;
+}
+
+.btn-switch:focus {
+  box-shadow: 0 0 5px 1px var(--black) !important;
+}
+
+.flag-size {
+  width: 24px;
+  height: 24px;
 }
 
 .icon-size {
+  padding-top: 3px;
+  font-size: 20px;
   width: 24px;
   height: 24px;
 }
@@ -180,11 +209,11 @@ export default {
 }
 
 .border-right {
-  border-right: 2px solid black;
+  border-right: 2px solid var(--black);
 }
 
 .border-left {
-  border-left: 2px solid black;
+  border-left: 2px solid var(--black);
 }
 
 @media (min-width: 900px) {

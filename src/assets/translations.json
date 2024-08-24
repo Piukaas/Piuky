@@ -18,5 +18,17 @@
   "drawings": {
     "nl": "Tekeningen",
     "en": "Drawings"
+  },
+  "cars": {
+    "nl": "Auto's",
+    "en": "Cars"
+  },
+  "login": {
+    "nl": "Inloggen",
+    "en": "Login"
+  },
+  "logout": {
+    "nl": "Uitloggen",
+    "en": "Logout"
   }
 }

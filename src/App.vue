@@ -2,17 +2,17 @@
   <NavBar />
   <h1>{{ $t("hello_world") }}</h1>
   <button type="button" class="btn btn-primary button-margin">Primary</button>
-  <button type="button" class="btn btn-primary button-margin round-btn"><i class="fa fa-skull"></i></button>
+  <button type="button" class="btn btn-primary button-margin btn-round"><i class="fa fa-skull"></i></button>
   <button type="button" class="btn btn-outline-primary button-margin">Primary Outlined</button>
   <button type="button" class="btn btn-light-primary button-margin">Primary Light</button>
 
   <button type="button" class="btn btn-secondary button-margin">Secondary</button>
-  <button type="button" class="btn btn-secondary button-margin round-btn"><i class="fa fa-skull"></i></button>
+  <button type="button" class="btn btn-secondary button-margin btn-round"><i class="fa fa-skull"></i></button>
   <button type="button" class="btn btn-outline-secondary button-margin">Secondary Outlined</button>
   <button type="button" class="btn btn-light-secondary button-margin">Secondary Light</button>
 
   <button type="button" class="btn btn-blackwhite button-margin">Blackwhite</button>
-  <button type="button" class="btn btn-blackwhite button-margin round-btn"><i class="fa fa-skull"></i></button>
+  <button type="button" class="btn btn-blackwhite button-margin btn-round"><i class="fa fa-skull"></i></button>
   <button type="button" class="btn btn-outline-blackwhite button-margin">Blackwhite Outlined</button>
   <button type="button" class="btn btn-light-blackwhite button-margin">Blackwhite Light</button>
 

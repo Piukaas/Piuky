@@ -45,7 +45,6 @@ function changeLanguage(locale) {
 // Make the changeLanguage function available globally
 app.config.globalProperties.$changeLanguage = changeLanguage;
 
-// Theme toggle function
 function changeTheme(theme) {
   document.body.setAttribute("theme", theme);
   localStorage.setItem("theme", theme);

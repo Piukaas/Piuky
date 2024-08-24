@@ -6,12 +6,35 @@
 
   <div v-if="isMenuVisible" class="overlay" @click="toggleMenu">
     <div class="menu" :class="{ 'fade-out': isMenuClosing }" @click.stop @animationend="handleAnimationEnd">
-      <!-- Menu Content -->
       <i class="fa fa-x close" @click="toggleMenu"></i>
       <ul class="menu-items">
-        <li><i class="fa-solid fa-user-astronaut"></i> {{ $t("account") }}</li>
+        <li>
+          <div v-if="!isLoggedIn" class="nav-link-container">
+            <router-link class="nav-link"> <i class="fa-solid fa-user-astronaut"></i> {{ $t("account") }} </router-link>
+            <b-tooltip :label="$t('logout')" :type="currentTheme === Themes.LIGHT ? 'is-dark' : 'is-dark'" position="is-left">
+              <button @click="logout" class="btn btn-outline-danger btn-round btn-sm">
+                <i class="fa fa-power-off"></i>
+              </button>
+            </b-tooltip>
+          </div>
+          <router-link v-else class="nav-link">{{ $t("login") }}</router-link>
+        </li>
         <hr />
-        <li v-for="(item, index) in menuItems" :key="index">{{ item }}</li>
+        <li>
+          <router-link class="nav-link">{{ $t("movies") }}</router-link>
+        </li>
+        <li>
+          <router-link class="nav-link">{{ $t("games") }}</router-link>
+        </li>
+        <li>
+          <router-link class="nav-link">{{ $t("maths") }}</router-link>
+        </li>
+        <li>
+          <router-link class="nav-link">{{ $t("drawings") }}</router-link>
+        </li>
+        <li>
+          <router-link class="nav-link">{{ $t("cars") }}</router-link>
+        </li>
         <hr />
         <li>
           <switch-button colorClass="warning" :left-value="nlFlag" :right-value="ukFlag" type="svg" :default-selection="currentLanguage === 'nl' ? 'left' : 'right'" @click="switchLanguage" />
@@ -24,7 +47,7 @@
             right-color="darkblue"
             right-txt-color="yellow"
             type="icon"
-            :default-selection="currentTheme === 'light' ? 'left' : 'right'"
+            :default-selection="currentTheme === Themes.LIGHT ? Directions.LEFT : Directions.RIGHT"
             @click="switchTheme"
           />
         </li>
@@ -39,6 +62,8 @@ import ukFlag from "@/assets/svg/uk-flag.svg";
 import SwitchButton from "@/components/items/SwitchButton.vue";
 import clouds from "@/assets/clouds.png";
 import van from "@/assets/van.png";
+import Themes from "@/assets/enums/themes";
+import Directions from "@/assets/enums/directions";
 
 export default {
   components: {
@@ -57,9 +82,18 @@ export default {
       isMenuClosing: false,
       menuItems: ["Item 1", "Item 2", "Item 3", "Item 4"],
       currentLanguage: localStorage.getItem("locale") || "nl",
-      currentTheme: localStorage.getItem("theme") || "light",
+      currentTheme: localStorage.getItem("theme") || Themes.LIGHT,
+      Themes,
+      Directions,
     };
   },
+
+  computed: {
+    isLoggedIn() {
+      return localStorage.getItem("user") !== null;
+    },
+  },
+
   methods: {
     moveVan() {
       this.isVanMoved = true;
@@ -164,7 +198,7 @@ export default {
   top: 20px;
   left: 20px;
   width: 200px;
-  height: 350px;
+  height: 400px;
   border: 3px solid #05384b !important;
   background-color: #f6f0e0 !important;
   color: #05384b !important;
@@ -211,9 +245,47 @@ export default {
 }
 
 .menu-items li {
+  font-size: 20px;
   width: 100%;
-  padding: 10px 0;
+  padding: 5px 0;
   text-align: left;
+}
+
+.nav-link-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-link {
+  color: var(--blackwhite);
+  transition: all 0.3s ease;
+  position: relative; /* Ensure the ::after element is positioned relative to the nav-link */
+  display: inline-block; /* Ensure the nav-link is treated as an inline-block element */
+}
+
+.nav-link:hover {
+  color: var(--blackwhite-dark);
+  transform: translateX(10px);
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 100%; /* Make the underline the width of the text */
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--black);
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+  display: inline-block; /* Ensure the ::after element is treated as an inline-block element */
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
 
 .close {

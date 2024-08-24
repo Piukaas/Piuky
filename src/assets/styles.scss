@@ -1,10 +1,12 @@
 @import "~@fortawesome/fontawesome-free/css/all.css";
 
+// Custom Font
 @font-face {
   font-family: "CustomFont";
   src: url("@/assets/coolvetica.otf") format("opentype");
 }
 
+// Base Styles
 body {
   font-family: "CustomFont", sans-serif !important;
   background-color: var(--background) !important;
@@ -12,8 +14,15 @@ body {
   transition: all 0.75s ease-in-out;
 }
 
+img {
+  user-select: none;
+}
+
+// Colors
 :root {
   --background: #f6f0e0;
+  --white: rgb(255, 255, 255);
+  --black: rgb(25, 25, 25);
   --primary: #67cec0;
   --primary-light: #9dd7d1;
   --primary-dark: #45a69c;
@@ -47,9 +56,19 @@ body {
 [theme="dark"] {
   --background: #05384b;
   --blackwhite: #f6f0e0;
-  --warning: #ffca2c;
-  --warning-light: #fff3c4;
-  --warning-dark: #ffbb00;
+}
+
+// Buttons
+.btn {
+  border-radius: 25px !important;
+  transition: all 0.75s ease-in-out !important;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn-round {
+  border-radius: 100% !important;
 }
 
 @function get-css-var($name) {
@@ -80,99 +99,55 @@ body {
     border: 2px solid $background-color !important;
     box-shadow: inset 0 0 0 1px $background-color !important;
   }
-}
 
-.round-btn {
-  border-radius: 100% !important;
-}
-
-button {
-  border-radius: 25px !important;
-}
-
-.btn {
-  transition: all 0.75s ease-in-out !important;
-}
-
-.btn:focus {
-  outline: none !important;
-  scale: 1.05;
+  &:focus {
+    box-shadow: inset 0 0 0 1px $background-color, 0 0 5px 1px $background-color !important;
+  }
 }
 
 @mixin dynamic-colors($color-name, $color-value) {
   .btn-#{$color-name} {
-    position: relative;
     background-color: $color-value !important;
     $dark-color: get-css-var("#{$color-name}-dark");
-    color: white !important;
-    overflow: hidden;
-    z-index: 1;
+    color: var(--white) !important;
     border: 2px solid $color-value !important;
     box-shadow: inset 0 0 0 1px $color-value !important;
 
-    @include hover-effect($dark-color, rgba(255, 255, 255, 0.75));
+    @include hover-effect($dark-color, var(--white));
   }
 
   .btn-light-#{$color-name} {
-    position: relative;
     $light-color: get-css-var("#{$color-name}-light");
     background-color: $light-color !important;
     $dark-color: get-css-var("#{$color-name}-dark");
     color: $dark-color !important;
-    overflow: hidden;
-    z-index: 1;
     border: 2px solid $color-value !important;
     box-shadow: inset 0 0 0 1px $color-value !important;
 
-    @include hover-effect($dark-color, #fff);
+    @include hover-effect($dark-color, var(--white));
   }
 
   .btn-outline-#{$color-name} {
-    position: relative;
     background-color: transparent !important;
     color: $color-value !important;
-    overflow: hidden;
-    z-index: 1;
     border: 2px solid $color-value !important;
     box-shadow: inset 0 0 0 1px $color-value !important;
 
-    @include hover-effect($color-value, #fff);
+    @include hover-effect($color-value, var(--white));
   }
 }
 
-@include dynamic-colors(primary, var(--primary));
-@include dynamic-colors(secondary, var(--secondary));
-@include dynamic-colors(blackwhite, var(--blackwhite));
-@include dynamic-colors(warning, var(--warning));
-@include dynamic-colors(danger, var(--danger));
-@include dynamic-colors(success, var(--success));
-@include dynamic-colors(info, var(--info));
-@include dynamic-colors(link, var(--link));
+$colors: (
+  primary: var(--primary),
+  secondary: var(--secondary),
+  blackwhite: var(--blackwhite),
+  warning: var(--warning),
+  danger: var(--danger),
+  success: var(--success),
+  info: var(--info),
+  link: var(--link),
+);
 
-.navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: var(--light);
-  padding: 10px;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-a {
-  text-decoration: none;
-  color: #333;
-}
-
-img {
-  user-select: none;
+@each $color-name, $color-value in $colors {
+  @include dynamic-colors($color-name, $color-value);
 }
