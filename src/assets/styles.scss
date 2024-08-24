@@ -44,7 +44,7 @@ hr {
   --success: #28a745;
   --success-light: #d4edda;
   --success-dark: #218838;
-  --danger: #dc3545;
+  --danger: #e05854;
   --danger-light: #f8d7da;
   --danger-dark: #c82333;
   --warning: #ffc107;
@@ -60,11 +60,14 @@ hr {
   --light-dark: #dae0e5;
   --dark: #343a40;
   --dark-light: #d6d8db;
+  --theme: #ffab00;
 }
 
 [theme="dark"] {
   --background: #05384b;
   --text: #f6f0e0;
+  --primary: #43a19a;
+  --theme: #378ae2;
 }
 
 // Buttons

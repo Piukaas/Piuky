@@ -10,35 +10,34 @@
       <ul class="menu-items">
         <li>
           <div v-if="isLoggedIn" class="nav-link-container">
-            <router-link to="/account" class="nav-link"> <i class="fa-solid fa-user-astronaut"></i> {{ $t("account") }} </router-link>
+            <router-link @click="toggleMenu" to="/account" class="nav-link"> <i class="fa-solid fa-user-astronaut"></i> {{ $t("account") }} </router-link>
             <b-tooltip :label="$t('logout')" :type="currentTheme === Themes.LIGHT ? 'is-dark' : 'is-light'" position="is-right">
               <button @click="logout" class="btn btn-outline-danger btn-round btn-sm">
                 <i class="fa fa-power-off"></i>
               </button>
             </b-tooltip>
           </div>
-          <router-link to="/login" v-else class="nav-link">{{ $t("login") }}</router-link>
+          <router-link @click="toggleMenu" to="/login" v-else class="nav-link">{{ $t("login") }}</router-link>
         </li>
         <hr />
         <li>
-          <router-link to="/movies" class="nav-link">{{ $t("movies") }}</router-link>
+          <router-link @click="toggleMenu" to="/movies" class="nav-link">{{ $t("movies") }}</router-link>
         </li>
         <li>
-          <router-link to="/games" class="nav-link">{{ $t("games") }}</router-link>
+          <router-link @click="toggleMenu" to="/games" class="nav-link">{{ $t("games") }}</router-link>
         </li>
         <li>
-          <router-link to="/maths" class="nav-link">{{ $t("maths") }}</router-link>
+          <router-link @click="toggleMenu" to="/maths" class="nav-link">{{ $t("maths") }}</router-link>
         </li>
         <li>
-          <router-link to="/drawings" class="nav-link">{{ $t("drawings") }}</router-link>
+          <router-link @click="toggleMenu" to="/drawings" class="nav-link">{{ $t("drawings") }}</router-link>
         </li>
         <li>
-          <router-link to="/cars" class="nav-link">{{ $t("cars") }}</router-link>
+          <router-link @click="toggleMenu" to="/cars" class="nav-link">{{ $t("cars") }}</router-link>
         </li>
         <hr />
         <li>
           <switch-button
-            :colorClass="ColorClasses.WARNING"
             :left-value="nlFlag"
             :right-value="ukFlag"
             :type="SwitchTypes.SVG"
@@ -48,11 +47,9 @@
         </li>
         <li>
           <switch-button
+            color-class="theme"
             left-value="fas fa-sun"
-            left-color="yellow"
             right-value="fas fa-moon"
-            right-color="darkblue"
-            right-txt-color="yellow"
             :type="SwitchTypes.ICON"
             :default-selection="currentTheme === Themes.LIGHT ? Directions.LEFT : Directions.RIGHT"
             @click="switchTheme"
