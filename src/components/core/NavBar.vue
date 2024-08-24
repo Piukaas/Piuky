@@ -9,7 +9,7 @@
       <i class="fas fa-xmark close" @click="toggleMenu"></i>
       <ul class="menu-items">
         <li>
-          <div v-if="!isLoggedIn" class="nav-link-container">
+          <div v-if="isLoggedIn" class="nav-link-container">
             <router-link to="/account" class="nav-link"> <i class="fa-solid fa-user-astronaut"></i> {{ $t("account") }} </router-link>
             <b-tooltip :label="$t('logout')" :type="currentTheme === Themes.LIGHT ? 'is-dark' : 'is-light'" position="is-right">
               <button @click="logout" class="btn btn-outline-danger btn-round btn-sm">
@@ -37,7 +37,14 @@
         </li>
         <hr />
         <li>
-          <switch-button colorClass="warning" :left-value="nlFlag" :right-value="ukFlag" type="svg" :default-selection="currentLanguage === 'nl' ? 'left' : 'right'" @click="switchLanguage" />
+          <switch-button
+            :colorClass="ColorClasses.WARNING"
+            :left-value="nlFlag"
+            :right-value="ukFlag"
+            :type="SwitchTypes.SVG"
+            :default-selection="currentLanguage === Languages.NL ? Directions.LEFT : Directions.RIGHT"
+            @click="switchLanguage"
+          />
         </li>
         <li>
           <switch-button
@@ -46,7 +53,7 @@
             right-value="fas fa-moon"
             right-color="darkblue"
             right-txt-color="yellow"
-            type="icon"
+            :type="SwitchTypes.ICON"
             :default-selection="currentTheme === Themes.LIGHT ? Directions.LEFT : Directions.RIGHT"
             @click="switchTheme"
           />
@@ -57,13 +64,16 @@
 </template>
 
 <script>
+import clouds from "@/assets/clouds.png";
+import ColorClasses from "@/assets/enums/color-classes";
+import Directions from "@/assets/enums/directions";
+import Languages from "@/assets/enums/languages";
+import SwitchTypes from "@/assets/enums/switch-types";
+import Themes from "@/assets/enums/themes";
 import nlFlag from "@/assets/svg/nl-flag.svg";
 import ukFlag from "@/assets/svg/uk-flag.svg";
-import SwitchButton from "@/components/items/SwitchButton.vue";
-import clouds from "@/assets/clouds.png";
 import van from "@/assets/van.png";
-import Themes from "@/assets/enums/themes";
-import Directions from "@/assets/enums/directions";
+import SwitchButton from "@/components/items/SwitchButton.vue";
 
 export default {
   components: {
@@ -72,19 +82,28 @@ export default {
 
   data() {
     return {
+      // Assets
       nlFlag,
       ukFlag,
       clouds,
       van,
-      isVanMoved: false,
+
+      // States
+      isMenuClosing: false,
       isMenuOpen: false,
       isMenuVisible: false,
-      isMenuClosing: false,
-      menuItems: ["Item 1", "Item 2", "Item 3", "Item 4"],
-      currentLanguage: localStorage.getItem("locale") || "nl",
+      isVanMoved: false,
+
+      // Settings
+      currentLanguage: localStorage.getItem("locale") || Languages.NL,
       currentTheme: localStorage.getItem("theme") || Themes.LIGHT,
+
+      // Constants
       Themes,
       Directions,
+      ColorClasses,
+      SwitchTypes,
+      Languages,
     };
   },
 
@@ -123,7 +142,7 @@ export default {
     },
 
     switchLanguage() {
-      this.currentLanguage = this.currentLanguage === "nl" ? "en" : "nl";
+      this.currentLanguage = this.currentLanguage === Languages.NL ? Languages.EN : Languages.NL;
       this.$changeLanguage(this.currentLanguage);
     },
 
@@ -269,8 +288,8 @@ export default {
 .nav-link {
   color: var(--text);
   transition: all 0.3s ease;
-  position: relative; /* Ensure the ::after element is positioned relative to the nav-link */
-  display: inline-block; /* Ensure the nav-link is treated as an inline-block element */
+  position: relative;
+  display: inline-block;
 }
 
 .nav-link:hover {
@@ -281,7 +300,7 @@ export default {
 .nav-link::after {
   content: "";
   position: absolute;
-  width: 100%; /* Make the underline the width of the text */
+  width: 100%;
   height: 2px;
   bottom: 0;
   left: 0;
@@ -289,7 +308,7 @@ export default {
   transform: scaleX(0);
   transform-origin: bottom right;
   transition: transform 0.25s ease-out;
-  display: inline-block; /* Ensure the ::after element is treated as an inline-block element */
+  display: inline-block;
 }
 
 .nav-link:hover::after {

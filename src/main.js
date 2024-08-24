@@ -1,12 +1,14 @@
 import App from "@/App.vue";
+import Languages from "@/assets/enums/languages";
+import Themes from "@/assets/enums/themes";
 import "@/assets/styles.scss";
 import translations from "@/assets/translations.json";
 import router from "@/router.js";
-import { createApp } from "vue";
-import { createI18n } from "vue-i18n";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Buefy from "buefy";
 import "buefy/dist/buefy.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { createApp } from "vue";
+import { createI18n } from "vue-i18n";
 
 function transformTranslations(translations) {
   const i18nStructure = {};
@@ -25,24 +27,22 @@ function transformTranslations(translations) {
 
 const messages = transformTranslations(translations);
 
-// Check for saved language in localStorage or default to 'en'
-const savedLocale = localStorage.getItem("locale") || "en";
+const savedLocale = localStorage.getItem("locale") || Languages.EN;
 
 const i18n = createI18n({
   legacy: false,
-  locale: savedLocale, // Use saved language or default
-  fallbackLocale: "en",
+  locale: savedLocale,
+  fallbackLocale: Languages.EN,
   messages,
 });
 
 const app = createApp(App);
 
 function changeLanguage(locale) {
-  i18n.global.locale.value = locale; // Change the language reactively
-  localStorage.setItem("locale", locale); // Save the new language preference
+  i18n.global.locale.value = locale;
+  localStorage.setItem("locale", locale);
 }
 
-// Make the changeLanguage function available globally
 app.config.globalProperties.$changeLanguage = changeLanguage;
 
 function changeTheme(theme) {
@@ -50,11 +50,9 @@ function changeTheme(theme) {
   localStorage.setItem("theme", theme);
 }
 
-// Make the changeTheme function available globally
 app.config.globalProperties.$changeTheme = changeTheme;
 
-// Set initial theme based on saved preference or default to light
-const savedTheme = localStorage.getItem("theme") || "light";
+const savedTheme = localStorage.getItem("theme") || Themes.LIGHT;
 document.body.setAttribute("theme", savedTheme);
 
 app.use(router);

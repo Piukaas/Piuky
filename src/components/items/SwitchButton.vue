@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="btn btn-switch switch-button" @click="toggle" @mouseover="handleMouseOver" @mouseleave="handleMouseLeave">
+  <button type="button" class="btn btn-switch" @click="toggle" @mouseover="handleMouseOver" @mouseleave="handleMouseLeave">
     <div class="switch-container">
       <template v-if="type === SwitchTypes.SVG">
         <img :src="leftValue" class="flag-size" :class="{ active: currentSelection === Directions.LEFT }" :style="[leftStyle, hover && hoverStyle]" />
@@ -22,9 +22,9 @@
 </template>
 
 <script>
+import ColorClasses from "@/assets/enums/color-classes";
 import Directions from "@/assets/enums/directions";
 import SwitchTypes from "@/assets/enums/switch-types";
-import ColorClasses from "@/assets/enums/color-classes";
 
 export default {
   props: {
@@ -56,12 +56,15 @@ export default {
 
   data() {
     return {
+      // States
       currentSelection: this.defaultSelection,
       hover: false,
       isMobile: window.innerWidth <= 900,
+
+      // Constants
+      ColorClasses,
       Directions,
       SwitchTypes,
-      ColorClasses,
     };
   },
 
@@ -130,8 +133,8 @@ export default {
 };
 </script>
 
-<style>
-.switch-button {
+<style scoped>
+.btn-switch {
   position: relative;
   display: flex;
   align-items: center;
@@ -147,9 +150,9 @@ export default {
   z-index: 1;
 }
 
-.switch-button img,
-.switch-button i,
-.switch-button .switch-txt {
+.btn-switch img,
+.btn-switch i,
+.btn-switch .switch-txt {
   opacity: 0.5;
   transition: opacity 0.5s ease, color 0.5s ease;
 }
@@ -176,9 +179,9 @@ export default {
   height: 24px;
 }
 
-.switch-button img.active,
-.switch-button i.active,
-.switch-button .switch-txt.active {
+.btn-switch img.active,
+.btn-switch i.active,
+.btn-switch .switch-txt.active {
   opacity: 1;
 }
 
@@ -217,12 +220,12 @@ export default {
 }
 
 @media (min-width: 900px) {
-  .switch-button:hover .overlay.left-selected {
+  .btn-switch:hover .overlay.left-selected {
     left: 0;
     width: 100%;
   }
 
-  .switch-button:hover .overlay.right-selected {
+  .btn-switch:hover .overlay.right-selected {
     right: 0;
     width: 100%;
   }
