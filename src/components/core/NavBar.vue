@@ -258,7 +258,7 @@ export default {
 }
 
 .nav-link {
-  color: var(--blackwhite);
+  color: var(--black);
   transition: all 0.3s ease;
   position: relative; /* Ensure the ::after element is positioned relative to the nav-link */
   display: inline-block; /* Ensure the nav-link is treated as an inline-block element */
