@@ -62,7 +62,7 @@ hr {
   --secondary: #6c757d;
   --secondary-light: #d6d8db;
   --secondary-dark: #545b62;
-  --blackwhite: #000;
+  --blackwhite: #191919;
   --blackwhite-light: #f8f9fa;
   --blackwhite-dark: #343a40;
   --success: #28a745;
@@ -182,6 +182,7 @@ $button-colors: (
   success: var(--success),
   info: var(--info),
   link: var(--link),
+  theme: var(--theme),
 );
 
 @each $color-name, $color-value in $button-colors {

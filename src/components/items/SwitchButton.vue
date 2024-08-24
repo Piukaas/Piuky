@@ -222,11 +222,11 @@ export default {
 }
 
 .border-right {
-  border-right: 3px solid var(--black);
+  border-right: 3px solid var(--black) !important;
 }
 
 .border-left {
-  border-left: 3px solid var(--black);
+  border-left: 3px solid var(--black) !important;
 }
 
 @media (min-width: 900px) {
