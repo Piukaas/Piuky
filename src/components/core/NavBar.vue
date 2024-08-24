@@ -17,7 +17,9 @@
               </button>
             </b-tooltip>
           </div>
-          <router-link @click="toggleMenu" to="/login" v-else class="nav-link">{{ $t("login") }}</router-link>
+          <p v-else @click="toggleLoginModal" class="nav-link">
+            {{ $t("login") }}
+          </p>
         </li>
         <hr />
         <li>
@@ -47,7 +49,7 @@
         </li>
         <li>
           <switch-button
-            color-class="theme"
+            :color-class="ColorClasses.THEME"
             left-value="fas fa-sun"
             right-value="fas fa-moon"
             :type="SwitchTypes.ICON"
@@ -58,6 +60,8 @@
       </ul>
     </div>
   </div>
+
+  <login-modal :is-visible="isLoginModalVisible" @close="toggleLoginModal" />
 </template>
 
 <script>
@@ -71,10 +75,12 @@ import nlFlag from "@/assets/svg/nl-flag.svg";
 import ukFlag from "@/assets/svg/uk-flag.svg";
 import van from "@/assets/van.png";
 import SwitchButton from "@/components/items/SwitchButton.vue";
+import LoginModal from "@/components/pages/LoginModal.vue";
 
 export default {
   components: {
     SwitchButton,
+    LoginModal,
   },
 
   data() {
@@ -90,6 +96,7 @@ export default {
       isMenuOpen: false,
       isMenuVisible: false,
       isVanMoved: false,
+      isLoginModalVisible: false,
 
       // Settings
       currentLanguage: localStorage.getItem("locale") || Languages.NL,
@@ -128,6 +135,11 @@ export default {
         this.isMenuVisible = true;
         this.isMenuOpen = true;
       }
+    },
+
+    toggleLoginModal() {
+      this.isLoginModalVisible = !this.isLoginModalVisible;
+      this.toggleMenu();
     },
 
     handleAnimationEnd() {
@@ -290,6 +302,7 @@ export default {
 }
 
 .nav-link:hover {
+  cursor: pointer;
   color: var(--text);
   transform: translateX(10px);
 }

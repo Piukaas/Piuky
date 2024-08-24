@@ -7,6 +7,7 @@ const ColorClasses = {
   SUCCESS: "success",
   INFO: "info",
   LINK: "link",
+  THEME: "theme",
 };
 
 export default ColorClasses;

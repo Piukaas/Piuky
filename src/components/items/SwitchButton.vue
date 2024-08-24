@@ -45,7 +45,17 @@ export default {
       type: String,
       default: ColorClasses.PRIMARY,
       validator: (value) =>
-        [ColorClasses.PRIMARY, ColorClasses.SECONDARY, ColorClasses.BLACKWHITE, ColorClasses.WARNING, ColorClasses.DANGER, ColorClasses.SUCCESS, ColorClasses.INFO, ColorClasses.LINK].includes(value),
+        [
+          ColorClasses.PRIMARY,
+          ColorClasses.SECONDARY,
+          ColorClasses.BLACKWHITE,
+          ColorClasses.WARNING,
+          ColorClasses.DANGER,
+          ColorClasses.SUCCESS,
+          ColorClasses.INFO,
+          ColorClasses.LINK,
+          ColorClasses.THEME,
+        ].includes(value),
     },
     defaultSelection: {
       type: String,
