@@ -6,12 +6,12 @@
 
   <div v-if="isMenuVisible" class="overlay" @click="toggleMenu">
     <div class="menu" :class="{ 'fade-out': isMenuClosing }" @click.stop @animationend="handleAnimationEnd">
-      <i class="fa fa-x close" @click="toggleMenu"></i>
+      <i class="fas fa-xmark close" @click="toggleMenu"></i>
       <ul class="menu-items">
         <li>
           <div v-if="!isLoggedIn" class="nav-link-container">
             <router-link to="/account" class="nav-link"> <i class="fa-solid fa-user-astronaut"></i> {{ $t("account") }} </router-link>
-            <b-tooltip :label="$t('logout')" :type="currentTheme === Themes.LIGHT ? 'is-dark' : 'is-dark'" position="is-left">
+            <b-tooltip :label="$t('logout')" :type="currentTheme === Themes.LIGHT ? 'is-dark' : 'is-light'" position="is-left">
               <button @click="logout" class="btn btn-outline-danger btn-round btn-sm">
                 <i class="fa fa-power-off"></i>
               </button>
@@ -206,11 +206,11 @@ export default {
   position: absolute;
   top: 20px;
   left: 20px;
-  width: 200px;
-  height: 400px;
-  border: 3px solid #05384b !important;
-  background-color: #f6f0e0 !important;
-  color: #05384b !important;
+  width: 220px;
+  height: fit-content;
+  border: 3px solid var(--text) !important;
+  background-color: var(--background) !important;
+  color: var(--text) !important;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -227,7 +227,7 @@ export default {
 @keyframes fadeIn {
   0% {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.5);
   }
   100% {
     opacity: 1;
@@ -242,7 +242,7 @@ export default {
   }
   100% {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.5);
   }
 }
 
@@ -267,14 +267,14 @@ export default {
 }
 
 .nav-link {
-  color: var(--black);
+  color: var(--text);
   transition: all 0.3s ease;
   position: relative; /* Ensure the ::after element is positioned relative to the nav-link */
   display: inline-block; /* Ensure the nav-link is treated as an inline-block element */
 }
 
 .nav-link:hover {
-  color: var(--blackwhite-dark);
+  color: var(--text);
   transform: translateX(10px);
 }
 
@@ -285,7 +285,7 @@ export default {
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: var(--black);
+  background-color: var(--text);
   transform: scaleX(0);
   transform-origin: bottom right;
   transition: transform 0.25s ease-out;
@@ -298,11 +298,12 @@ export default {
 }
 
 .close {
+  color: var(--text);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.75s ease-in-out;
 }
 
 .close:hover {
-  scale: 1.1;
+  scale: 1.5;
 }
 </style>

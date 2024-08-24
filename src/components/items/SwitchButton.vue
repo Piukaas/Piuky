@@ -155,9 +155,9 @@ export default {
 }
 
 .btn-switch {
-  background-color: var(--white) !important;
-  border: 2px solid var(--black) !important;
-  color: var(--black) !important;
+  background-color: var(--beige) !important;
+  border: 3px solid var(--black) !important;
+  color: var(--background) !important;
 }
 
 .btn-switch:focus {
@@ -209,11 +209,11 @@ export default {
 }
 
 .border-right {
-  border-right: 2px solid var(--black);
+  border-right: 3px solid var(--black);
 }
 
 .border-left {
-  border-left: 2px solid var(--black);
+  border-left: 3px solid var(--black);
 }
 
 @media (min-width: 900px) {

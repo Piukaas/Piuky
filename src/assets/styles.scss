@@ -10,7 +10,7 @@
 body {
   font-family: "CustomFont", sans-serif !important;
   background-color: var(--background) !important;
-  color: var(--blackwhite) !important;
+  color: var(--text) !important;
   transition: all 0.75s ease-in-out;
 }
 
@@ -18,20 +18,27 @@ img {
   user-select: none;
 }
 
+hr {
+  height: 2px !important;
+}
+
 // Colors
 :root {
   --background: #f6f0e0;
-  --white: rgb(255, 255, 255);
-  --black: rgb(25, 25, 25);
+  --text: #05384b;
+  --beige: #f6f0e0;
+  --dark-blue: #05384b;
+  --white: #eee;
+  --black: #191919;
   --primary: #67cec0;
   --primary-light: #9dd7d1;
   --primary-dark: #45a69c;
   --secondary: #6c757d;
   --secondary-light: #d6d8db;
   --secondary-dark: #545b62;
-  --blackwhite: #05384b;
+  --blackwhite: #000;
   --blackwhite-light: #f8f9fa;
-  --blackwhite-dark: #212529;
+  --blackwhite-dark: #343a40;
   --success: #28a745;
   --success-light: #d4edda;
   --success-dark: #218838;
@@ -55,7 +62,7 @@ img {
 
 [theme="dark"] {
   --background: #05384b;
-  --blackwhite: #f6f0e0;
+  --text: #f6f0e0;
 }
 
 // Buttons
@@ -128,7 +135,7 @@ img {
   }
 
   .btn-outline-#{$color-name} {
-    background-color: transparent !important;
+    background-color: var(--beige) !important;
     color: $color-value !important;
     border: 2px solid $color-value !important;
     box-shadow: inset 0 0 0 1px $color-value !important;
@@ -137,7 +144,7 @@ img {
   }
 }
 
-$colors: (
+$button-colors: (
   primary: var(--primary),
   secondary: var(--secondary),
   blackwhite: var(--blackwhite),
@@ -148,6 +155,6 @@ $colors: (
   link: var(--link),
 );
 
-@each $color-name, $color-value in $colors {
+@each $color-name, $color-value in $button-colors {
   @include dynamic-colors($color-name, $color-value);
 }
