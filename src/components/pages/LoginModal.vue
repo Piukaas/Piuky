@@ -1,7 +1,7 @@
 <template>
   <b-modal v-model="localIsVisible" has-modal-card trap-focus :destroy-on-hide="false" aria-role="dialog" aria-label="Example Modal" close-button-aria-label="Close" aria-modal class="custom-modal">
     <form action="">
-      <div class="modal-card">
+      <div class="modal-card" style="width: auto">
         <header class="modal-card-head">
           <p class="modal-card-title">Login</p>
           <i class="fas fa-xmark close" @click="closeModal"></i>
