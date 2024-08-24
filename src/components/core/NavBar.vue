@@ -102,7 +102,7 @@ export default {
       }, 750);
       setTimeout(() => {
         this.isVanMoved = false;
-      }, 1500);
+      }, 2500);
     },
 
     toggleMenu() {
@@ -161,7 +161,7 @@ export default {
 }
 
 .move-left {
-  animation: hop 0.5s ease-in-out, move-left 1s ease-in-out 0.5s;
+  animation: hop 0.5s ease-in-out, move-left 1s ease-in-out 0.5s, move-right 1s ease-in-out 1.5s;
 }
 
 @keyframes hop {
@@ -180,6 +180,15 @@ export default {
   }
   100% {
     transform: translateX(-100vw);
+  }
+}
+
+@keyframes move-right {
+  0% {
+    transform: translateX(100vw);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
 
@@ -290,5 +299,10 @@ export default {
 
 .close {
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.close:hover {
+  scale: 1.1;
 }
 </style>
