@@ -1,21 +1,25 @@
 <template>
   <b-modal v-model="localIsVisible" has-modal-card trap-focus :destroy-on-hide="false" aria-role="dialog" aria-label="Example Modal" close-button-aria-label="Close" aria-modal class="custom-modal">
-    <form action="">
-      <div class="modal-card" style="width: auto">
+    <form class="needs-validation" novalidate @submit.prevent="validateForm">
+      <div class="modal-card" style="margin: 20px">
         <header class="modal-card-head">
-          <p class="modal-card-title">Login</p>
+          <p class="modal-card-title">{{ $t("login") }}</p>
           <i class="fas fa-xmark close" @click="closeModal"></i>
         </header>
         <section class="modal-card-body">
-          <b-field label="Email">
-            <b-input type="email" v-model="email" placeholder="Your email" required></b-input>
-          </b-field>
+          <div class="form-check">
+            <label for="email" class="form-label required">{{ $t("email") }}</label>
+            <input type="email" class="form-control" id="email" v-model="email" required @blur="validateField" />
+            <div class="invalid-feedback">{{ $t("email_invalid") }}</div>
+            <div class="valid-feedback">{{ email + $t("email_valid") }}</div>
+          </div>
 
-          <b-field label="Password">
-            <b-input type="password" v-model="password" password-reveal placeholder="Your password" required></b-input>
-          </b-field>
-
-          <b-checkbox>Remember me</b-checkbox>
+          <div class="form-check">
+            <label for="password" class="form-label required">{{ $t("password") }}</label>
+            <input type="password" class="form-control" id="password" v-model="password" required @blur="validateField" />
+            <div class="invalid-feedback">{{ $t("password_invalid") }}</div>
+            <div class="valid-feedback">{{ maskedPassword + $t("password_valid") }}</div>
+          </div>
         </section>
         <footer class="modal-card-foot">
           <button type="button" class="btn btn-outline-danger" @click="closeModal">{{ $t("close") }}</button>
@@ -53,9 +57,42 @@ export default {
     },
   },
 
+  computed: {
+    maskedPassword() {
+      return "*".repeat(this.password.length);
+    },
+  },
+
   methods: {
     closeModal() {
       this.localIsVisible = false;
+    },
+
+    validateForm() {
+      const form = this.$el.querySelector(".needs-validation");
+      if (!form.checkValidity()) {
+        form.classList.add("was-validated");
+        return;
+      }
+      this.submitForm();
+    },
+
+    validateField(event) {
+      const field = event.target;
+      if (field && field.checkValidity) {
+        if (!field.checkValidity()) {
+          field.classList.add("is-invalid");
+          field.classList.remove("is-valid");
+        } else {
+          field.classList.add("is-valid");
+          field.classList.remove("is-invalid");
+        }
+      }
+    },
+
+    submitForm() {
+      console.log("Form submitted with:", this.email, this.password);
+      this.closeModal();
     },
   },
 };

@@ -220,3 +220,45 @@ $button-colors: (
 @each $color-name, $color-value in $button-colors {
   @include dynamic-colors($color-name, $color-value);
 }
+
+// Forms
+.form-control {
+  border-radius: 25px !important;
+  background-color: var(--white) !important;
+  color: var(--black) !important;
+  border: 3px solid var(--black) !important;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 5px 1px var(--black) !important;
+}
+
+.required::after {
+  content: " *";
+  color: var(--danger);
+  font-weight: bold;
+}
+
+.was-validated .form-control:valid,
+.form-control.is-valid {
+  border-color: var(--success) !important;
+  color: var(--success) !important;
+  background-color: var(--success-light) !important;
+}
+
+.was-validated .form-control:valid:focus,
+.form-control.is-valid:focus {
+  box-shadow: 0 0 5px 1px var(--success) !important;
+}
+
+.was-validated .form-control:invalid,
+.form-control.is-invalid {
+  border-color: var(--danger) !important;
+  color: var(--danger) !important;
+  background-color: var(--danger-light) !important;
+}
+
+.was-validated .form-control:invalid:focus,
+.form-control.is-invalid:focus {
+  box-shadow: 0 0 5px 1px var(--danger) !important;
+}

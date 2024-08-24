@@ -34,5 +34,29 @@
   "close": {
     "nl": "Sluiten",
     "en": "Close"
+  },
+  "email": {
+    "nl": "E-mail",
+    "en": "Email"
+  },
+  "email_invalid": {
+    "nl": "E-mail is ongeldig",
+    "en": "Email is invalid"
+  },
+  "email_valid": {
+    "nl": " is een mooi e-mailadres",
+    "en": " is a nice email address"
+  },
+  "password": {
+    "nl": "Wachtwoord",
+    "en": "Password"
+  },
+  "password_invalid": {
+    "nl": "Wachtwoord is ongeldig",
+    "en": "Password is required"
+  },
+  "password_valid": {
+    "nl": " is een mooi wachtwoord",
+    "en": " is a nice password"
   }
 }
