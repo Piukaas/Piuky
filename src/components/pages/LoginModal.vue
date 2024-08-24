@@ -1,7 +1,7 @@
 <template>
-  <b-modal v-model="localIsVisible" has-modal-card trap-focus :destroy-on-hide="false" aria-role="dialog" aria-label="Example Modal" close-button-aria-label="Close" aria-modal class="custom-modal">
+  <b-modal v-model="localIsVisible" has-modal-card trap-focus :destroy-on-hide="false" aria-role="dialog" aria-label="Login Modal" close-button-aria-label="Close" aria-modal>
     <form class="needs-validation" novalidate @submit.prevent="validateForm">
-      <div class="modal-card" style="margin: 20px">
+      <div class="modal-card">
         <header class="modal-card-head">
           <p class="modal-card-title">{{ $t("login") }}</p>
           <i class="fas fa-xmark close" @click="closeModal"></i>
