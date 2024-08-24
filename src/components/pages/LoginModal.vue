@@ -1,10 +1,10 @@
 <template>
-  <b-modal v-model="localIsVisible" class="modal-piuky" has-modal-card trap-focus :destroy-on-hide="false" aria-role="dialog" aria-label="Example Modal" close-button-aria-label="Close" aria-modal>
+  <b-modal v-model="localIsVisible" has-modal-card trap-focus :destroy-on-hide="false" aria-role="dialog" aria-label="Example Modal" close-button-aria-label="Close" aria-modal class="custom-modal">
     <form action="">
-      <div class="modal-card" style="width: auto">
+      <div class="modal-card">
         <header class="modal-card-head">
           <p class="modal-card-title">Login</p>
-          <button type="button" class="delete" @click="closeModal"></button>
+          <i class="fas fa-xmark close" @click="closeModal"></i>
         </header>
         <section class="modal-card-body">
           <b-field label="Email">
@@ -18,8 +18,8 @@
           <b-checkbox>Remember me</b-checkbox>
         </section>
         <footer class="modal-card-foot">
-          <b-button label="Close" @click="closeModal" />
-          <b-button label="Login" type="is-primary" />
+          <button type="button" class="btn btn-outline-danger" @click="closeModal">{{ $t("close") }}</button>
+          <button type="submit" class="btn btn-primary">{{ $t("login") }}</button>
         </footer>
       </div>
     </form>
@@ -34,6 +34,7 @@ export default {
       required: true,
     },
   },
+
   data() {
     return {
       localIsVisible: this.isVisible,
@@ -41,14 +42,17 @@ export default {
       password: "",
     };
   },
+
   watch: {
     isVisible(newVal) {
       this.localIsVisible = newVal;
     },
+
     localIsVisible(newVal) {
       this.$emit("update:isVisible", newVal);
     },
   },
+
   methods: {
     closeModal() {
       this.localIsVisible = false;

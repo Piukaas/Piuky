@@ -139,7 +139,9 @@ export default {
 
     toggleLoginModal() {
       this.isLoginModalVisible = !this.isLoginModalVisible;
-      this.toggleMenu();
+      this.isMenuOpen = false;
+      this.isMenuVisible = false;
+      this.isMenuClosing = false;
     },
 
     handleAnimationEnd() {
@@ -324,15 +326,5 @@ export default {
 .nav-link:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
-}
-
-.close {
-  color: var(--text);
-  cursor: pointer;
-  transition: all 0.75s ease-in-out;
-}
-
-.close:hover {
-  scale: 1.5;
 }
 </style>

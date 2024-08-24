@@ -44,8 +44,30 @@ hr {
   margin: 5px 0 !important;
 }
 
+// Modal
+.modal-card {
+  border: 3px solid var(--text) !important;
+  border-radius: 15px !important;
+}
+
 .modal-card-head {
   background-color: var(--background) !important;
+  border-bottom: 0 !important;
+}
+
+.modal-card-title {
+  color: var(--text) !important;
+}
+
+.modal-card-body {
+  background-color: var(--background) !important;
+}
+
+.modal-card-foot {
+  background-color: var(--background) !important;
+  border-top: 0 !important;
+  justify-content: flex-end !important;
+  gap: 10px;
 }
 
 // Colors
@@ -105,6 +127,16 @@ hr {
 
 .btn-round {
   border-radius: 100% !important;
+}
+
+.close {
+  color: var(--text) !important;
+  cursor: pointer;
+  transition: all 0.75s ease-in-out;
+}
+
+.close:hover {
+  scale: 1.5;
 }
 
 @function get-css-var($name) {
