@@ -11,7 +11,7 @@
         <li>
           <div v-if="!isLoggedIn" class="nav-link-container">
             <router-link to="/account" class="nav-link"> <i class="fa-solid fa-user-astronaut"></i> {{ $t("account") }} </router-link>
-            <b-tooltip :label="$t('logout')" :type="currentTheme === Themes.LIGHT ? 'is-dark' : 'is-light'" position="is-left">
+            <b-tooltip :label="$t('logout')" :type="currentTheme === Themes.LIGHT ? 'is-dark' : 'is-light'" position="is-right">
               <button @click="logout" class="btn btn-outline-danger btn-round btn-sm">
                 <i class="fa fa-power-off"></i>
               </button>
