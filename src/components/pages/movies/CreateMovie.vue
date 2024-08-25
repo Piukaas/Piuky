@@ -1,48 +1,86 @@
 <template>
   <div>
-    <input class="form-control" type="text" v-model="searchQuery" placeholder="Enter search query" />
-    <button class="btn btn-primary" @click="searchMovies">Search</button>
+    <h1>{{ $t("add_new_movie") }}</h1>
 
-    <div v-if="movieResults.length" class="row">
-      <h3>Search Results:</h3>
-      <div v-for="movie in movieResults" :key="movie.id" class="card-container col-lg-3 col-md-6">
-        <div class="card">
-          <div class="card-body row">
-            <img v-if="movie.poster_path" :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" class="movie-img" :alt="movie.title" />
-            <img v-else :src="fallbackImage" class="movie-img" alt="Default Poster" />
+    <div class="input-group">
+      <input class="form-control" type="text" v-model="searchQuery" :placeholder="$t('search_movie_tmdb')" @keyup.enter="searchMovies" />
+      <button class="btn btn-primary btn-round" @click="searchMovies">
+        <i class="fas fa-magnifying-glass"></i>
+      </button>
+    </div>
+
+    <div class="row">
+      <!-- Loading Skeletons -->
+      <template v-if="loadingMovies">
+        <div v-for="number in 8" :key="number" class="card-container col-lg-3 col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <b-skeleton height="300px" class="skeleton-poster" />
+            </div>
           </div>
+          <h3><b-skeleton width="150px" /></h3>
         </div>
-        <h3>{{ movie.title }}</h3>
-      </div>
+      </template>
+
+      <!-- Movie Results -->
+      <template v-else-if="movieResults.length">
+        <h2>{{ $t("search_results") }}</h2>
+        <div v-for="movie in movieResults" :key="movie.id" class="card-container col-lg-3 col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <img :src="movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://i.imgur.com/42uQxSx.png'" class="movie-img" :alt="movie.title" />
+            </div>
+          </div>
+          <h3>{{ movie.title }}</h3>
+        </div>
+      </template>
+
+      <!-- No Results -->
+      <template v-else-if="searchInitiated">
+        <h2>{{ $t("no_results") }}</h2>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import fallbackImage from "@/assets/default-poster.png";
 
 export default {
   data() {
     return {
       searchQuery: "",
       movieResults: [],
-      fallbackImage,
+      loadingMovies: false,
+      searchInitiated: false,
     };
   },
   methods: {
     searchMovies() {
+      if (!this.searchQuery.trim()) return;
       this.movieResults = [];
-      const apiUrl = process.env.VUE_APP_API_URL;
+      this.loadingMovies = true;
+      this.searchInitiated = true;
+
       axios
-        .get(`${apiUrl}/movies/tmdb?title=${this.searchQuery}`)
+        .get(`${process.env.VUE_APP_API_URL}/movies/tmdb?title=${this.searchQuery}`)
         .then((response) => {
           this.movieResults = response.data.results;
         })
         .catch((error) => {
-          throw new Error("Error: " + error);
+          console.error("Error:", error);
+        })
+        .finally(() => {
+          this.loadingMovies = false;
         });
     },
   },
 };
 </script>
+
+<style scoped>
+.input-group {
+  margin-bottom: 20px;
+  gap: 5px;
+}
+</style>

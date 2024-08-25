@@ -203,6 +203,11 @@ $button-colors: (
   @include dynamic-colors($color-name, $color-value);
 }
 
+// Skeleton
+.skeleton-poster {
+  width: 200px !important;
+}
+
 // Modal
 .modal-card {
   border: 3px solid var(--text) !important;
@@ -262,9 +267,8 @@ $button-colors: (
 }
 
 .card-container h1,
-h3 {
-  margin-top: 10px !important;
-  margin-bottom: 10px !important;
+.card-container h3 {
+  margin: 10px 0;
   text-align: center;
 }
 
