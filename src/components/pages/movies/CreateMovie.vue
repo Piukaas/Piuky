@@ -5,7 +5,7 @@
 
     <div v-if="movieResults.length" class="row">
       <h3>Search Results:</h3>
-      <div v-for="movie in movieResults" :key="movie.id" class="card-container col-3">
+      <div v-for="movie in movieResults" :key="movie.id" class="card-container col-lg-3 col-md-6">
         <div class="card">
           <div class="card-body row">
             <img v-if="movie.poster_path" :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" class="movie-img" :alt="movie.title" />
