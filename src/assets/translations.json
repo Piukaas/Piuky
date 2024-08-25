@@ -62,5 +62,21 @@
   "password_valid": {
     "nl": " is een mooi wachtwoord",
     "en": " is a nice password"
+  },
+  "movie_list_overview": {
+    "nl": "Film lijsten overzicht",
+    "en": "Movie list overview"
+  },
+  "owned": {
+    "nl": "Inbezit",
+    "en": "Owned"
+  },
+  "wishlist": {
+    "nl": "Verlanglijst",
+    "en": "Wishlist"
+  },
+  "franchises": {
+    "nl": "Franchises",
+    "en": "Franchises"
   }
 }
