@@ -14,6 +14,11 @@ body {
   transition: all 0.75s ease-in-out;
 }
 
+.form-control::selection {
+  background-color: var(--black) !important;
+  color: var(--white) !important;
+}
+
 ::selection {
   background-color: var(--text) !important;
   color: var(--background) !important;
@@ -256,9 +261,10 @@ $button-colors: (
   transform: scale(1.05);
 }
 
-.card-container h1 {
-  margin-top: 10px;
-  margin-bottom: 10px;
+.card-container h1,
+h3 {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
   text-align: center;
 }
 

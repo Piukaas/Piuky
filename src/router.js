@@ -1,5 +1,6 @@
-import { createRouter, createWebHistory } from "vue-router";
+import CreateMovie from "@/components/pages/movies/CreateMovie.vue";
 import ListOverview from "@/components/pages/movies/ListOverview.vue";
+import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   {
@@ -11,6 +12,11 @@ const routes = [
     path: "/movies",
     name: "Movies",
     component: ListOverview,
+  },
+  {
+    path: "/movies/create",
+    name: "CreateMovie",
+    component: CreateMovie,
   },
   {
     path: "/:catchAll(.*)",

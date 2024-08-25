@@ -1,7 +1,7 @@
 <template>
   <NavBar />
   <div class="row router-view-wrapper">
-    <router-view class="col-lg-8 col-6 router-view-content"></router-view>
+    <router-view class="col-lg-8 col-6 router-view-content" />
   </div>
 </template>
 
@@ -21,6 +21,10 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+}
+
+.router-view-content {
+  margin: 100px 0;
 }
 
 @media (max-width: 1000px) {
