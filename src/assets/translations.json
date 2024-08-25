@@ -11,6 +11,10 @@
     "nl": "Films",
     "en": "Movies"
   },
+  "tv-shows": {
+    "nl": "Series",
+    "en": "Shows"
+  },
   "games": {
     "nl": "Spelletjes",
     "en": "Games"
@@ -78,5 +82,65 @@
   "franchises": {
     "nl": "Franchises",
     "en": "Franchises"
+  },
+  "add_new": {
+    "nl": "Nieuwe {item} toevoegen",
+    "en": "Add new {item}"
+  },
+  "movie": {
+    "nl": "film",
+    "en": "movie"
+  },
+  "tv": {
+    "nl": "serie",
+    "en": "show"
+  },
+  "search_tmdb": {
+    "nl": "Zoek in TMDB",
+    "en": "Search in TMDB"
+  },
+  "search_results": {
+    "nl": "Zoekresultaten",
+    "en": "Search results"
+  },
+  "no_results": {
+    "nl": "Geen resultaten gevonden",
+    "en": "No results found"
+  },
+  "rumored": {
+    "nl": "Gerucht",
+    "en": "Rumored"
+  },
+  "planned": {
+    "nl": "Gepland",
+    "en": "Planned"
+  },
+  "in_production": {
+    "nl": "In productie",
+    "en": "In production"
+  },
+  "post_production": {
+    "nl": "Post productie",
+    "en": "Post production"
+  },
+  "released": {
+    "nl": "Uitgebracht",
+    "en": "Released"
+  },
+  "canceled": {
+    "nl": "Geannuleerd",
+    "en": "Canceled"
+  },
+  "returning_series": {
+    "nl": "Terugkerende series",
+    "en": "Returning series"
+  },
+  "ended": {
+    "nl": "Beëindigd",
+    "en": "Ended"
+  },
+  "pilot": {
+    "nl": "Pilot",
+    "en": "Pilot"
   }
 }

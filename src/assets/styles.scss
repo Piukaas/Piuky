@@ -242,6 +242,12 @@ $button-colors: (
   height: auto;
 }
 
+.logo-img {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: auto;
+}
+
 // Card
 .card {
   border: 3px solid var(--black) !important;
@@ -281,6 +287,21 @@ $button-colors: (
 }
 
 .form-control:focus {
+  box-shadow: 0 0 5px 1px var(--black) !important;
+}
+
+.form-select {
+  border-radius: 25px !important;
+  background-color: var(--white) !important;
+  color: var(--black) !important;
+  border: 3px solid var(--black) !important;
+}
+
+.form-select:hover {
+  cursor: pointer;
+}
+
+.form-select:focus {
   box-shadow: 0 0 5px 1px var(--black) !important;
 }
 

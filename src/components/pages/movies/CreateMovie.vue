@@ -1,44 +1,43 @@
 <template>
-  <div>
-    <h1>{{ $t("add_new_movie") }}</h1>
-
-    <div class="input-group">
-      <input class="form-control" type="text" v-model="searchQuery" :placeholder="$t('search_movie_tmdb')" @keyup.enter="searchMovies" />
-      <button class="btn btn-primary btn-round" @click="searchMovies">
-        <i class="fas fa-magnifying-glass"></i>
-      </button>
+  <div v-if="item">
+    <h1>{{ item.title || item.name }}</h1>
+    <p>{{ item.tagline }} - {{ item.first_air_date }} t/m {{ item.last_air_date }}</p>
+    <!-- <p>{{ item.runtime || item.last_episode_to_air ? item.last_episode_to_air.runtime : "" }} minuten per aflevering</p> -->
+    <p>{{ $t(item.status ? item.status.toLowerCase().replace(/ /g, "_") : "") }}</p>
+    <b-rate v-model="item.vote_average" :show-score="true" icon="fas fa-skull" :max="10" icon-pack="fas" :spaced="true" disabled></b-rate>
+    <a :href="`https://www.youtube.com/watch?v=${trailer}`" target="_blank">Trailer</a>
+    <p>{{ item.overview }}</p>
+    <p v-for="genre in item.genres" :key="genre.id">{{ genre.name }}</p>
+    <div v-for="season in item.seasons" :key="season._id">
+      <h3>{{ season.name }}</h3>
+      <p>{{ season.overview }}</p>
+      <p>{{ season.air_date }}</p>
+      <b-rate v-model="season.vote_average" :show-score="true" icon="fas fa-skull" :max="10" icon-pack="fas" :spaced="true" disabled></b-rate>
+      <ul>
+        <li v-for="episode in season.episode_count" :key="episode">Episode {{ episode }}</li>
+      </ul>
     </div>
 
     <div class="row">
-      <!-- Loading Skeletons -->
-      <template v-if="loadingMovies">
-        <div v-for="number in 8" :key="number" class="card-container col-lg-3 col-md-6">
+      <div class="col-6">
+        <div v-for="image in item.images.posters" :key="image.file_path" class="card-container">
           <div class="card">
             <div class="card-body">
-              <b-skeleton height="300px" class="skeleton-poster" />
+              <img :src="image.file_path ? `https://image.tmdb.org/t/p/w500${image.file_path}` : 'https://i.imgur.com/42uQxSx.png'" class="movie-img" :alt="item.title || item.name" />
             </div>
           </div>
-          <h3><b-skeleton width="150px" /></h3>
         </div>
-      </template>
+      </div>
 
-      <!-- Movie Results -->
-      <template v-else-if="movieResults.length">
-        <h2>{{ $t("search_results") }}</h2>
-        <div v-for="movie in movieResults" :key="movie.id" class="card-container col-lg-3 col-md-6">
+      <div class="col-6">
+        <div v-for="image in item.images.logos" :key="image.file_path" class="card-container">
           <div class="card">
             <div class="card-body">
-              <img :src="movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://i.imgur.com/42uQxSx.png'" class="movie-img" :alt="movie.title" />
+              <img :src="image.file_path ? `https://image.tmdb.org/t/p/w500${image.file_path}` : 'https://i.imgur.com/42uQxSx.png'" class="logo-img" :alt="item.title || item.name" />
             </div>
           </div>
-          <h3>{{ movie.title }}</h3>
         </div>
-      </template>
-
-      <!-- No Results -->
-      <template v-else-if="searchInitiated">
-        <h2>{{ $t("no_results") }}</h2>
-      </template>
+      </div>
     </div>
   </div>
 </template>
@@ -49,38 +48,38 @@ import axios from "axios";
 export default {
   data() {
     return {
-      searchQuery: "",
-      movieResults: [],
-      loadingMovies: false,
-      searchInitiated: false,
+      item: null,
     };
   },
+
+  created() {
+    this.fetchItemDetails();
+  },
+
+  watch: {
+    "$route.params.id": "fetchItemDetails",
+  },
+
+  computed: {
+    trailer() {
+      return this.item.videos.results.find((video) => video.type === "Trailer")?.key;
+    },
+  },
+
   methods: {
-    searchMovies() {
-      if (!this.searchQuery.trim()) return;
-      this.movieResults = [];
-      this.loadingMovies = true;
-      this.searchInitiated = true;
+    fetchItemDetails() {
+      const id = this.$route.params.id;
+      const searchType = this.$route.query.searchType || "movie"; // Default to 'movie' if not specified
 
       axios
-        .get(`${process.env.VUE_APP_API_URL}/movies/tmdb?title=${this.searchQuery}`)
+        .get(`${process.env.VUE_APP_API_URL}/movies/tmdb/${id}?searchType=${searchType}`)
         .then((response) => {
-          this.movieResults = response.data.results;
+          this.item = response.data;
         })
         .catch((error) => {
-          console.error("Error:", error);
-        })
-        .finally(() => {
-          this.loadingMovies = false;
+          console.error("Error fetching item details:", error);
         });
     },
   },
 };
 </script>
-
-<style scoped>
-.input-group {
-  margin-bottom: 20px;
-  gap: 5px;
-}
-</style>

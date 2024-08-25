@@ -26,7 +26,7 @@
           <router-link @click="toggleMenu" to="/" class="nav-link">{{ $t("home") }}</router-link>
         </li>
         <li>
-          <router-link @click="toggleMenu" to="/movies" class="nav-link">{{ $t("movies") }}</router-link>
+          <router-link @click="toggleMenu" to="/movies" class="nav-link">{{ `${$t("movies")} & ${$t("tv-shows")}` }}</router-link>
         </li>
         <li>
           <router-link @click="toggleMenu" to="/games" class="nav-link">{{ $t("games") }}</router-link>
@@ -197,6 +197,10 @@ export default {
 
 .van {
   transition: transform 1.5s ease-in-out;
+}
+
+.van:hover {
+  transform: scale(1.1);
 }
 
 .move-left {

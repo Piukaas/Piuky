@@ -1,4 +1,5 @@
 import CreateMovie from "@/components/pages/movies/CreateMovie.vue";
+import SearchMovie from "@/components/pages/movies/SearchMovie.vue";
 import ListOverview from "@/components/pages/movies/ListOverview.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -15,8 +16,15 @@ const routes = [
   },
   {
     path: "/movies/create",
-    name: "CreateMovie",
-    component: CreateMovie,
+    name: "SearchMovie",
+    component: SearchMovie,
+    children: [
+      {
+        path: ":id",
+        name: "CreateMovie",
+        component: CreateMovie,
+      },
+    ],
   },
   {
     path: "/:catchAll(.*)",
