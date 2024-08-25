@@ -1,9 +1,9 @@
 <template>
   <div v-if="item">
-    <button class="btn btn-primary mr-10" @click="showImages('logos')"><i class="fas fa-icons"></i> Logos</button>
-    <button class="btn btn-primary" @click="showImages('posters')"><i class="fas fa-image"></i> Show Posters</button>
+    <button class="btn btn-primary mr-10" @click="togglePosterModal"><i class="fas fa-image"></i> {{ $t("choose_poster") }}</button>
+    <button class="btn btn-primary" @click="toggleLogoModal"><i class="fas fa-icons"></i> {{ $t("choose_logo") }}</button>
     <h1>{{ item.title || item.name }}</h1>
-    <p>{{ item.tagline }} - {{ item.first_air_date }} t/m {{ item.last_air_date }}</p>
+    <p>{{ item.tagline }} - {{ item.release_date || item.first_air_date }} t/m {{ item.last_air_date }}</p>
     <!-- <p>{{ item.runtime || item.last_episode_to_air ? item.last_episode_to_air.runtime : "" }} minuten per aflevering</p> -->
     <p>{{ $t(item.status ? item.status.toLowerCase().replace(/ /g, "_") : "") }}</p>
     <b-rate v-model="item.vote_average" :show-score="true" icon="fas fa-skull" :max="10" icon-pack="fas" :spaced="true" disabled></b-rate>
@@ -21,7 +21,8 @@
     </div>
   </div>
 
-  <image-modal :is-visible="isImageModalVisible" :images="modalImages" :type="modalType" @close="toggleImageModal" />
+  <image-modal :is-visible="isPosterModalVisible" :images="item?.images?.posters" type="poster" @close="togglePosterModal" />
+  <image-modal :is-visible="isLogoModalVisible" :images="item?.images?.logos" type="logo" @close="toggleLogoModal" />
 </template>
 
 <script>
@@ -37,7 +38,8 @@ export default {
   data() {
     return {
       item: null,
-      isImageModalVisible: false,
+      isPosterModalVisible: false,
+      isLogoModalVisible: false,
       modalImages: [],
       modalType: "",
       userService: new UserService(),
@@ -49,11 +51,11 @@ export default {
       this.$router.push("/?login=true");
     }
 
-    this.fetchItemDetails();
+    this.fetchDetails();
   },
 
   watch: {
-    "$route.params.id": "fetchItemDetails",
+    "$route.params.id": "fetchDetails",
   },
 
   computed: {
@@ -64,21 +66,25 @@ export default {
 
   methods: {
     showImages(type) {
-      if (type === "logos") {
+      if (type === "logo") {
         this.modalImages = this.item.images.logos;
-        this.modalType = "logo";
-      } else if (type === "posters") {
+      } else if (type === "poster") {
         this.modalImages = this.item.images.posters;
-        this.modalType = "poster";
       }
+      this.modalType = type;
+
       this.isImageModalVisible = true;
     },
 
-    toggleImageModal() {
-      this.isImageModalVisible = !this.isImageModalVisible;
+    togglePosterModal() {
+      this.isPosterModalVisible = !this.isPosterModalVisible;
     },
 
-    fetchItemDetails() {
+    toggleLogoModal() {
+      this.isLogoModalVisible = !this.isLogoModalVisible;
+    },
+
+    fetchDetails() {
       const id = this.$route.params.id;
       const searchType = this.$route.query.searchType || "movie";
 

@@ -15,6 +15,8 @@
                 </div>
               </div>
             </div>
+
+            <div v-if="!images?.length" class="alert alert-danger" role="alert">{{ $t("no_results") }}</div>
           </div>
         </section>
         <footer class="modal-card-foot">

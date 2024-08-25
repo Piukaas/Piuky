@@ -35,6 +35,10 @@
     "nl": "Inloggen",
     "en": "Login"
   },
+  "wrong_credentials": {
+    "nl": "Verkeerde inloggegevens",
+    "en": "Wrong credentials"
+  },
   "logout": {
     "nl": "Uitloggen",
     "en": "Logout"
@@ -142,5 +146,13 @@
   "pilot": {
     "nl": "Pilot",
     "en": "Pilot"
+  },
+  "choose_logo": {
+    "nl": "Kies een logo",
+    "en": "Choose a logo"
+  },
+  "choose_poster": {
+    "nl": "Kies een poster",
+    "en": "Choose a poster"
   }
 }

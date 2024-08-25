@@ -122,7 +122,7 @@ export default {
         })
         .catch((error) => {
           if (error.status === 400) {
-            this.error = "wrong_login_information";
+            this.error = "wrong_credentials";
           } else {
             throw of(error);
           }
