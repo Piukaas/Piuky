@@ -1,6 +1,8 @@
 <template>
   <NavBar />
-  <router-view></router-view>
+  <div class="router-view-wrapper">
+    <router-view class="router-view-content"></router-view>
+  </div>
 </template>
 
 <script>
@@ -12,3 +14,17 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.router-view-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.router-view-content {
+  padding-left: 220px;
+  padding-right: 220px;
+}
+</style>

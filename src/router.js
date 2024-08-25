@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import ListOverview from "@/components/pages/movies/ListOverview.vue";
 
 const routes = [
   {
@@ -7,9 +8,9 @@ const routes = [
     component: {},
   },
   {
-    path: "/about",
-    name: "About",
-    component: {},
+    path: "/movies",
+    name: "Movies",
+    component: ListOverview,
   },
   {
     path: "/:catchAll(.*)",

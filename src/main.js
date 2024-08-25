@@ -4,9 +4,9 @@ import Themes from "@/assets/enums/themes";
 import "@/assets/styles.scss";
 import translations from "@/assets/translations.json";
 import router from "@/router.js";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Buefy from "buefy";
 import "buefy/dist/buefy.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { createApp } from "vue";
 import { createI18n } from "vue-i18n";
 

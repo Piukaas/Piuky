@@ -23,6 +23,9 @@
         </li>
         <hr />
         <li>
+          <router-link @click="toggleMenu" to="/" class="nav-link">{{ $t("home") }}</router-link>
+        </li>
+        <li>
           <router-link @click="toggleMenu" to="/movies" class="nav-link">{{ $t("movies") }}</router-link>
         </li>
         <li>
@@ -324,6 +327,15 @@ export default {
 }
 
 .nav-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.router-link-active {
+  transform: translateX(10px);
+}
+
+.router-link-active::after {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
