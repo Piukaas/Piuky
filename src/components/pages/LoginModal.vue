@@ -20,6 +20,8 @@
             <div class="invalid-feedback">{{ $t("password_invalid") }}</div>
             <div class="valid-feedback">{{ maskedPassword + $t("password_valid") }}</div>
           </div>
+
+          <div v-if="error" class="alert alert-danger" role="alert">{{ $t(error) }}</div>
         </section>
         <footer class="modal-card-foot">
           <button type="button" class="btn btn-outline-danger" @click="closeModal">{{ $t("close") }}</button>
@@ -31,6 +33,10 @@
 </template>
 
 <script>
+import UserService from "@/assets/utils/user-service";
+import axios from "axios";
+import { of } from "rxjs";
+
 export default {
   props: {
     isVisible: {
@@ -42,8 +48,10 @@ export default {
   data() {
     return {
       localIsVisible: this.isVisible,
+      error: "",
       email: "",
       password: "",
+      userService: new UserService(),
     };
   },
 
@@ -63,6 +71,7 @@ export default {
     },
   },
 
+  // LoginModal.vue
   methods: {
     closeModal() {
       this.localIsVisible = false;
@@ -74,7 +83,7 @@ export default {
         form.classList.add("was-validated");
         return;
       }
-      this.submitForm();
+      this.onLogin();
     },
 
     validateField(event) {
@@ -90,9 +99,34 @@ export default {
       }
     },
 
-    submitForm() {
-      console.log("Form submitted with:", this.email, this.password);
-      this.closeModal();
+    onLogin() {
+      const { email, password } = this;
+      axios
+        .post(`${process.env.VUE_APP_API_URL}/users/login`, {
+          email,
+          password,
+        })
+        .then((response) => {
+          const data = response.data;
+          if (data !== null) {
+            const expiresAt = data.expiresIn * 1000 + Date.now();
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("username", data.user.username);
+            localStorage.setItem("expires_at", JSON.stringify(expiresAt));
+            this.userService.setUsername(data.user.username);
+
+            this.$emit("login-success", data.user.username); // Emit event with username
+
+            this.closeModal();
+          }
+        })
+        .catch((error) => {
+          if (error.status === 400) {
+            this.error = "wrong_login_information";
+          } else {
+            throw of(error);
+          }
+        });
     },
   },
 };

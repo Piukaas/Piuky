@@ -52,7 +52,9 @@
 </template>
 
 <script>
+import UserService from "@/assets/utils/user-service";
 import axios from "axios";
+import { of } from "rxjs";
 
 export default {
   data() {
@@ -62,8 +64,16 @@ export default {
       results: [],
       loading: false,
       searchInitiated: false,
+      userService: new UserService(),
     };
   },
+
+  created() {
+    if (!this.userService.isAuthenticated()) {
+      this.$router.push("/?login=true");
+    }
+  },
+
   methods: {
     search() {
       if (!this.searchQuery.trim()) return;
@@ -71,13 +81,24 @@ export default {
       this.loading = true;
       this.searchInitiated = true;
 
+      const token = this.userService.getToken();
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
       axios
-        .get(`${process.env.VUE_APP_API_URL}/movies/tmdb?title=${this.searchQuery}&searchType=${this.searchType}`)
+        .get(`${process.env.VUE_APP_API_URL}/movies/tmdb`, {
+          params: {
+            title: this.searchQuery,
+            searchType: this.searchType,
+          },
+          headers: headers,
+        })
         .then((response) => {
           this.results = response.data.results;
         })
         .catch((error) => {
-          console.error("Error:", error);
+          throw new of(error);
         })
         .finally(() => {
           this.loading = false;

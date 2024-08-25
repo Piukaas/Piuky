@@ -25,8 +25,9 @@
 </template>
 
 <script>
-import axios from "axios";
+import UserService from "@/assets/utils/user-service";
 import ImageModal from "@/components/pages/movies/ImageModal.vue";
+import axios from "axios";
 
 export default {
   components: {
@@ -39,10 +40,15 @@ export default {
       isImageModalVisible: false,
       modalImages: [],
       modalType: "",
+      userService: new UserService(),
     };
   },
 
   created() {
+    if (!this.userService.isAuthenticated()) {
+      this.$router.push("/?login=true");
+    }
+
     this.fetchItemDetails();
   },
 
@@ -74,15 +80,24 @@ export default {
 
     fetchItemDetails() {
       const id = this.$route.params.id;
-      const searchType = this.$route.query.searchType || "movie"; // Default to 'movie' if not specified
+      const searchType = this.$route.query.searchType || "movie";
+
+      const headers = {
+        Authorization: `Bearer ${this.userService.getToken()}`,
+      };
 
       axios
-        .get(`${process.env.VUE_APP_API_URL}/movies/tmdb/${id}?searchType=${searchType}`)
+        .get(`${process.env.VUE_APP_API_URL}/movies/tmdb/${id}`, {
+          params: {
+            searchType,
+          },
+          headers,
+        })
         .then((response) => {
           this.item = response.data;
         })
         .catch((error) => {
-          console.error("Error fetching item details:", error);
+          console.error(error);
         });
     },
   },

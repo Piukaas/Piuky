@@ -9,8 +9,8 @@
       <i class="fas fa-xmark close" @click="toggleMenu"></i>
       <ul class="menu-items">
         <li>
-          <div v-if="isLoggedIn" class="nav-link-container">
-            <router-link @click="toggleMenu" to="/account" class="nav-link"> <i class="fa-solid fa-user-astronaut"></i> {{ $t("account") }} </router-link>
+          <div v-if="userService.isAuthenticated()" class="nav-link-container">
+            <router-link @click="toggleMenu" to="/account" class="nav-link"> <i class="fa-solid fa-user-astronaut"></i> {{ username }} </router-link>
             <b-tooltip :label="$t('logout')" :type="currentTheme === Themes.LIGHT ? 'is-dark' : 'is-light'" position="is-right">
               <button @click="logout" class="btn btn-outline-danger btn-round btn-sm">
                 <i class="fa fa-power-off"></i>
@@ -64,7 +64,7 @@
     </div>
   </div>
 
-  <login-modal :is-visible="isLoginModalVisible" @close="toggleLoginModal" />
+  <login-modal :is-visible="isLoginModalVisible" @close="toggleLoginModal" @login-success="updateUsername" />
 </template>
 
 <script>
@@ -79,6 +79,7 @@ import ukFlag from "@/assets/svg/uk-flag.svg";
 import van from "@/assets/van.png";
 import SwitchButton from "@/components/items/SwitchButton.vue";
 import LoginModal from "@/components/pages/LoginModal.vue";
+import UserService from "@/assets/utils/user-service";
 
 export default {
   components: {
@@ -111,7 +112,15 @@ export default {
       ColorClasses,
       SwitchTypes,
       Languages,
+      userService: new UserService(),
+      username: localStorage.getItem("username") || "",
     };
+  },
+
+  created() {
+    if (this.userService.isAuthenticated()) {
+      this.checkTokenExpiration();
+    }
   },
 
   computed: {
@@ -120,7 +129,32 @@ export default {
     },
   },
 
+  watch: {
+    "$route.query.login"(newVal) {
+      if (newVal === "true") {
+        this.toggleLoginModal();
+      }
+    },
+  },
+
   methods: {
+    logout() {
+      this.userService.logout();
+      this.toggleMenu();
+    },
+
+    checkTokenExpiration() {
+      const checkExpiration = () => {
+        const expiresAt = localStorage.getItem("expires_at") || "0";
+        if (Date.now() > expiresAt) {
+          this.logout();
+        }
+      };
+
+      checkExpiration();
+      this.tokenCheckInterval = setInterval(checkExpiration, 60 * 1000);
+    },
+
     moveVan() {
       this.isVanMoved = true;
       setTimeout(() => {
@@ -163,6 +197,10 @@ export default {
     switchTheme() {
       this.currentTheme = this.currentTheme === "light" ? "dark" : "light";
       this.$changeTheme(this.currentTheme);
+    },
+
+    updateUsername(username) {
+      this.username = username;
     },
   },
 };
