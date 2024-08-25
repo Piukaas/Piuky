@@ -181,6 +181,12 @@ export default {
 
 @media (max-width: 900px) {
   .logo-container {
+    width: 25%;
+  }
+}
+
+@media (max-width: 600px) {
+  .logo-container {
     width: 40%;
   }
 }
