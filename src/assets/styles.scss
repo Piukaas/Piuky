@@ -52,6 +52,33 @@ hr {
   margin: 5px 0 !important;
 }
 
+// Margin variable classes
+$margin-values: 0px, 1px, 2px, 3px, 4px, 5px, 6px, 7px, 8px, 9px, 10px, 11px, 12px, 13px, 14px, 15px, 16px, 17px, 18px, 19px, 20px, 21px, 22px, 23px, 24px, 25px;
+
+@each $value in $margin-values {
+  $index: index($margin-values, $value);
+
+  .m-#{$index} {
+    margin: $value !important;
+  }
+
+  .mt-#{$index} {
+    margin-top: $value !important;
+  }
+
+  .mr-#{$index} {
+    margin-right: $value !important;
+  }
+
+  .mb-#{$index} {
+    margin-bottom: $value !important;
+  }
+
+  .ml-#{$index} {
+    margin-left: $value !important;
+  }
+}
+
 // Colors
 :root {
   --background: #f6f0e0;
@@ -216,7 +243,6 @@ $button-colors: (
 
 .modal-card-head {
   background-color: var(--background) !important;
-  border-bottom: 0 !important;
 }
 
 .modal-card-title {
@@ -229,7 +255,6 @@ $button-colors: (
 
 .modal-card-foot {
   background-color: var(--background) !important;
-  border-top: 0 !important;
   justify-content: flex-end !important;
   gap: 10px;
 }
@@ -262,6 +287,7 @@ $button-colors: (
 }
 
 .card-container {
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -274,7 +300,7 @@ $button-colors: (
 
 .card-container h1,
 .card-container h3 {
-  margin: 10px 0;
+  margin-bottom: 10px;
   text-align: center;
 }
 

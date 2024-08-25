@@ -1,5 +1,7 @@
 <template>
   <div v-if="item">
+    <button class="btn btn-primary mr-10" @click="showImages('logos')"><i class="fas fa-icons"></i> Logos</button>
+    <button class="btn btn-primary" @click="showImages('posters')"><i class="fas fa-image"></i> Show Posters</button>
     <h1>{{ item.title || item.name }}</h1>
     <p>{{ item.tagline }} - {{ item.first_air_date }} t/m {{ item.last_air_date }}</p>
     <!-- <p>{{ item.runtime || item.last_episode_to_air ? item.last_episode_to_air.runtime : "" }} minuten per aflevering</p> -->
@@ -17,38 +19,26 @@
         <li v-for="episode in season.episode_count" :key="episode">Episode {{ episode }}</li>
       </ul>
     </div>
-
-    <div class="row">
-      <div class="col-6">
-        <div v-for="image in item.images.posters" :key="image.file_path" class="card-container">
-          <div class="card">
-            <div class="card-body">
-              <img :src="image.file_path ? `https://image.tmdb.org/t/p/w500${image.file_path}` : 'https://i.imgur.com/42uQxSx.png'" class="movie-img" :alt="item.title || item.name" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-6">
-        <div v-for="image in item.images.logos" :key="image.file_path" class="card-container">
-          <div class="card">
-            <div class="card-body">
-              <img :src="image.file_path ? `https://image.tmdb.org/t/p/w500${image.file_path}` : 'https://i.imgur.com/42uQxSx.png'" class="logo-img" :alt="item.title || item.name" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
+
+  <image-modal :is-visible="isImageModalVisible" :images="modalImages" :type="modalType" @close="toggleImageModal" />
 </template>
 
 <script>
 import axios from "axios";
+import ImageModal from "@/components/pages/movies/ImageModal.vue";
 
 export default {
+  components: {
+    ImageModal,
+  },
+
   data() {
     return {
       item: null,
+      isImageModalVisible: false,
+      modalImages: [],
+      modalType: "",
     };
   },
 
@@ -62,11 +52,26 @@ export default {
 
   computed: {
     trailer() {
-      return this.item.videos.results.find((video) => video.type === "Trailer")?.key;
+      return this.item?.videos?.results.find((video) => video.type === "Trailer")?.key;
     },
   },
 
   methods: {
+    showImages(type) {
+      if (type === "logos") {
+        this.modalImages = this.item.images.logos;
+        this.modalType = "logo";
+      } else if (type === "posters") {
+        this.modalImages = this.item.images.posters;
+        this.modalType = "poster";
+      }
+      this.isImageModalVisible = true;
+    },
+
+    toggleImageModal() {
+      this.isImageModalVisible = !this.isImageModalVisible;
+    },
+
     fetchItemDetails() {
       const id = this.$route.params.id;
       const searchType = this.$route.query.searchType || "movie"; // Default to 'movie' if not specified
