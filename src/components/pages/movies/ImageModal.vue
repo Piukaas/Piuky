@@ -11,7 +11,11 @@
             <div v-for="image in images" :key="image.file_path" class="card-container col-lg-4 col-6">
               <div class="card">
                 <div class="card-body">
-                  <img :src="image.file_path ? `https://image.tmdb.org/t/p/w500${image.file_path}` : 'https://i.imgur.com/42uQxSx.png'" class="logo-img" />
+                  <img
+                    :src="image.file_path ? `https://image.tmdb.org/t/p/w500${image.file_path}` : 'https://i.imgur.com/42uQxSx.png'"
+                    :class="`${type}-img`"
+                    @click="emitImagePath(image.file_path)"
+                  />
                 </div>
               </div>
             </div>
@@ -73,6 +77,10 @@ export default {
   methods: {
     closeModal() {
       this.localIsVisible = false;
+    },
+
+    emitImagePath(filePath) {
+      this.$emit("image-clicked", filePath);
     },
   },
 };

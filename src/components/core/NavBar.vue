@@ -23,22 +23,34 @@
         </li>
         <hr />
         <li>
-          <router-link @click="toggleMenu" to="/" class="nav-link">{{ $t("home") }}</router-link>
+          <router-link @click="toggleMenu" to="/" class="nav-link" :class="isActiveRoute('/') ? 'router-link-active' : ''">
+            {{ $t("home") }}
+          </router-link>
         </li>
         <li>
-          <router-link @click="toggleMenu" to="/movies" class="nav-link">{{ `${$t("movies")} & ${$t("tv-shows")}` }}</router-link>
+          <router-link @click="toggleMenu" to="/movies" class="nav-link" :class="isActiveRoute('/movies') ? 'router-link-active' : ''">
+            {{ `${$t("movies")} & ${$t("tv-shows")}` }}
+          </router-link>
         </li>
         <li>
-          <router-link @click="toggleMenu" to="/games" class="nav-link">{{ $t("games") }}</router-link>
+          <router-link @click="toggleMenu" to="/games" class="nav-link" :class="isActiveRoute('/games') ? 'router-link-active' : ''">
+            {{ $t("games") }}
+          </router-link>
         </li>
         <li>
-          <router-link @click="toggleMenu" to="/maths" class="nav-link">{{ $t("maths") }}</router-link>
+          <router-link @click="toggleMenu" to="/maths" class="nav-link" :class="isActiveRoute('/maths') ? 'router-link-active' : ''">
+            {{ $t("maths") }}
+          </router-link>
         </li>
         <li>
-          <router-link @click="toggleMenu" to="/drawings" class="nav-link">{{ $t("drawings") }}</router-link>
+          <router-link @click="toggleMenu" to="/drawings" class="nav-link" :class="isActiveRoute('/drawings') ? 'router-link-active' : ''">
+            {{ $t("drawings") }}
+          </router-link>
         </li>
         <li>
-          <router-link @click="toggleMenu" to="/cars" class="nav-link">{{ $t("cars") }}</router-link>
+          <router-link @click="toggleMenu" to="/cars" class="nav-link" :class="isActiveRoute('/cars') ? 'router-link-active' : ''">
+            {{ $t("cars") }}
+          </router-link>
         </li>
         <hr />
         <li>
@@ -201,6 +213,13 @@ export default {
 
     updateUsername(username) {
       this.username = username;
+    },
+
+    isActiveRoute(route) {
+      if (route === "/") {
+        return this.$route.path === route;
+      }
+      return this.$route.path.startsWith(route);
     },
   },
 };

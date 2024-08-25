@@ -34,7 +34,7 @@
         <div v-for="result in results" :key="result.id" class="card-container col-lg-3 col-md-6" @click="goToCreate(result.id)">
           <div class="card">
             <div class="card-body">
-              <img :src="result.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : 'https://i.imgur.com/42uQxSx.png'" class="movie-img" :alt="result.title || result.name" />
+              <img :src="result.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : 'https://i.imgur.com/42uQxSx.png'" class="poster-img" :alt="result.title || result.name" />
             </div>
           </div>
           <h3>{{ result.title || result.name }}</h3>
@@ -59,7 +59,7 @@ import { of } from "rxjs";
 export default {
   data() {
     return {
-      searchType: "movie",
+      searchType: "",
       searchQuery: "",
       results: [],
       loading: false,
@@ -72,6 +72,8 @@ export default {
     if (!this.userService.isAuthenticated()) {
       this.$router.push("/?login=true");
     }
+
+    this.searchType = this.$route.query.searchType || "movie";
   },
 
   methods: {

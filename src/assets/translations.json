@@ -154,5 +154,25 @@
   "choose_poster": {
     "nl": "Kies een poster",
     "en": "Choose a poster"
+  },
+  "add_to_wishlist": {
+    "nl": "Toevoegen aan verlanglijst",
+    "en": "Add to wishlist"
+  },
+  "remove_from_wishlist": {
+    "nl": "Verwijderen van verlanglijst",
+    "en": "Remove from wishlist"
+  },
+  "minutes": {
+    "nl": "minuten",
+    "en": "minutes"
+  },
+  "around": {
+    "nl": "Ongeveer",
+    "en": "Around"
+  },
+  "minutes_per_episode": {
+    "nl": "minuten per aflevering",
+    "en": "minutes per episode"
   }
 }

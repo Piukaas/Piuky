@@ -116,13 +116,22 @@ $margin-values: 0px, 1px, 2px, 3px, 4px, 5px, 6px, 7px, 8px, 9px, 10px, 11px, 12
   --dark: #343a40;
   --dark-light: #d6d8db;
   --theme: #ffab00;
+  --theme-light: #ffecb5;
+  --theme-dark: #ffab00;
+  --disc: #d19df3;
+  --disc-light: #f3e8fd;
+  --disc-dark: #725091;
 }
 
 [theme="dark"] {
   --background: #05384b;
   --text: #f6f0e0;
   --primary: #43a19a;
+  --primary-light: #6dbcb5;
+  --primary-dark: #2c7b74;
   --theme: #378ae2;
+  --theme-light: #c5e2f8;
+  --theme-dark: #1f5f9b;
 }
 
 // Buttons
@@ -136,6 +145,11 @@ $margin-values: 0px, 1px, 2px, 3px, 4px, 5px, 6px, 7px, 8px, 9px, 10px, 11px, 12
 
 .btn-round {
   border-radius: 100% !important;
+}
+
+.btn-disc {
+  width: 80px;
+  height: 40px;
 }
 
 .close {
@@ -177,6 +191,24 @@ $margin-values: 0px, 1px, 2px, 3px, 4px, 5px, 6px, 7px, 8px, 9px, 10px, 11px, 12
     box-shadow: inset 0 0 0 1px $background-color !important;
   }
 
+  &.active::before {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  &.active:hover::before {
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  &.active {
+    color: $text-color !important;
+    border: 2px solid $background-color !important;
+    box-shadow: inset 0 0 0 1px $background-color !important;
+  }
+
+  &.active:hover {
+    color: $background-color !important;
+  }
+
   &:focus {
     box-shadow: inset 0 0 0 1px $background-color, 0 0 5px 1px $background-color !important;
   }
@@ -205,7 +237,7 @@ $margin-values: 0px, 1px, 2px, 3px, 4px, 5px, 6px, 7px, 8px, 9px, 10px, 11px, 12
   }
 
   .btn-outline-#{$color-name} {
-    background-color: var(--beige) !important;
+    background-color: var(--white) !important;
     color: $color-value !important;
     border: 2px solid $color-value !important;
     box-shadow: inset 0 0 0 1px $color-value !important;
@@ -224,6 +256,7 @@ $button-colors: (
   info: var(--info),
   link: var(--link),
   theme: var(--theme),
+  disc: var(--disc),
 );
 
 @each $color-name, $color-value in $button-colors {
@@ -260,7 +293,7 @@ $button-colors: (
 }
 
 // Image
-.movie-img {
+.poster-img {
   border-radius: 25px;
   margin-top: 5px;
   margin-bottom: 5px;
