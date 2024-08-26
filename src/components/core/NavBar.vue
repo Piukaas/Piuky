@@ -1,11 +1,11 @@
 <template>
   <div class="logo-container" @click="moveVan">
     <img :src="clouds" class="logo" />
-    <img :src="van" class="logo van" :class="{ 'van-animation': isVanMoved }" />
+    <img :src="van" class="logo van" :class="{ 'van-animation': isVanMoved }" @animationend="handleAnimationEnd" />
   </div>
 
   <div v-if="isMenuVisible" class="overlay" @click="toggleMenu">
-    <div class="menu" :class="{ 'fade-out': isMenuClosing }" @click.stop @animationend="handleAnimationEnd">
+    <div class="menu" :class="{ 'fade-out': isMenuClosing }" @click.stop @animationend="handleMenuAnimationEnd">
       <i class="fas fa-xmark close" @click="toggleMenu"></i>
       <ul class="menu-items">
         <li>
@@ -182,7 +182,7 @@ export default {
       }, 750);
       setTimeout(() => {
         this.isVanMoved = false;
-      }, 2500);
+      }, 4500);
     },
 
     toggleMenu() {
@@ -201,7 +201,13 @@ export default {
       this.isMenuClosing = false;
     },
 
-    handleAnimationEnd() {
+    handleAnimationEnd(event) {
+      if (event.animationName === "move-left" || event.animationName === "move-from-right") {
+        this.isVanMoved = false;
+      }
+    },
+
+    handleMenuAnimationEnd() {
       if (this.isMenuClosing) {
         this.isMenuOpen = false;
         this.isMenuVisible = false;
@@ -270,7 +276,7 @@ export default {
 }
 
 .van-animation {
-  animation: hop 0.5s ease-in-out, move-left 1s ease-in-out 0.5s, move-from-right 1s ease-in-out 1.5s forwards;
+  animation: hop 0.5s ease-in-out, move-left 1s ease-in-out 0.5s, move-from-right 1s ease-in-out 1.5s;
 }
 
 @keyframes hop {
