@@ -27,12 +27,12 @@ function transformTranslations(translations) {
 
 const messages = transformTranslations(translations);
 
-const savedLocale = localStorage.getItem("locale") || Languages.EN;
+const savedLocale = localStorage.getItem("locale") || Languages.NL;
 
 const i18n = createI18n({
   legacy: false,
   locale: savedLocale,
-  fallbackLocale: Languages.EN,
+  fallbackLocale: Languages.NL,
   messages,
 });
 
