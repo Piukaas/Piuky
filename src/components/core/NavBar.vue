@@ -9,7 +9,7 @@
       <i class="fas fa-xmark close" @click="toggleMenu"></i>
       <ul class="menu-items">
         <li>
-          <div v-if="userService.isAuthenticated()" class="nav-link-container">
+          <div v-if="isAuthenticated" class="nav-link-container">
             <router-link @click="toggleMenu" to="/account" class="nav-link"> <i class="fa-solid fa-user-astronaut"></i> {{ username }} </router-link>
             <b-tooltip :label="$t('logout')" :type="currentTheme === Themes.LIGHT ? 'is-dark' : 'is-light'" position="is-right">
               <button @click="logout" class="btn btn-outline-danger btn-round btn-sm">
@@ -113,6 +113,7 @@ export default {
       isMenuVisible: false,
       isVanMoved: false,
       isLoginModalVisible: false,
+      isAuthenticated: false,
 
       // Settings
       currentLanguage: localStorage.getItem("locale") || Languages.NL,
@@ -130,15 +131,22 @@ export default {
   },
 
   created() {
+    this.isAuthenticated = this.userService.isAuthenticated();
+    this.username = localStorage.getItem("username") || "";
+
+    // Subscribe to auth status changes
+    this.userService.authStatus$.subscribe((isAuthenticated) => {
+      this.isAuthenticated = isAuthenticated;
+    });
+
+    // Subscribe to username changes
+    this.userService.username$.subscribe((username) => {
+      this.username = username || "";
+    });
+
     if (this.userService.isAuthenticated()) {
       this.checkTokenExpiration();
     }
-  },
-
-  computed: {
-    isLoggedIn() {
-      return localStorage.getItem("user") !== null;
-    },
   },
 
   watch: {
@@ -152,7 +160,6 @@ export default {
   methods: {
     logout() {
       this.userService.logout();
-      this.toggleMenu();
     },
 
     checkTokenExpiration() {
@@ -213,6 +220,7 @@ export default {
 
     updateUsername(username) {
       this.username = username;
+      this.isAuthenticated = true;
     },
 
     isActiveRoute(route) {

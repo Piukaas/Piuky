@@ -6,8 +6,8 @@
           <h3 class="modal-title">{{ $t("login") }}</h3>
           <button type="button" class="btn-close" aria-label="Close" @click="closeModal"></button>
         </div>
-        <div class="modal-body">
-          <form class="needs-validation" novalidate @submit.prevent="validateForm">
+        <form class="needs-validation" novalidate @submit.prevent="validateForm">
+          <div class="modal-body">
             <div class="form-check">
               <label for="email" class="form-label required">{{ $t("email") }}</label>
               <input type="email" class="form-control" id="email" v-model="email" required @blur="validateField" />
@@ -23,13 +23,13 @@
             </div>
 
             <div v-if="error" class="p-2 alert alert-danger" role="alert">{{ $t(error) }}</div>
-          </form>
-        </div>
+          </div>
 
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-danger" @click="closeModal">{{ $t("close") }}</button>
-          <button type="submit" class="btn btn-primary">{{ $t("login") }}</button>
-        </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-danger" @click="closeModal">{{ $t("close") }}</button>
+            <button type="submit" class="btn btn-primary">{{ $t("login") }}</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -114,19 +114,21 @@ export default {
             const expiresAt = data.expiresIn * 1000 + Date.now();
             localStorage.setItem("token", data.token);
             localStorage.setItem("username", data.user.username);
+            localStorage.setItem("user_id", data.user._id);
             localStorage.setItem("expires_at", JSON.stringify(expiresAt));
             this.userService.setUsername(data.user.username);
 
-            this.$emit("login-success", data.user.username); // Emit event with username
+            this.$emit("login-success", data.user.username);
             this.successMessage();
             this.closeModal();
           }
         })
         .catch((error) => {
-          if (error.status === 400) {
+          if (error.response && error.response.status === 400) {
             this.error = "wrong_credentials";
           } else {
-            throw of(error);
+            this.error = "login_failed";
+            throw new of(error);
           }
         });
     },
