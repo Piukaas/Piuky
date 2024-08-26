@@ -29,7 +29,7 @@
       <p>{{ dateUtils.formatDate(season.air_date) }}</p>
       <b-rate v-model="item.vote_average" :show-score="true" icon="fas fa-bone" :max="10" icon-pack="fas" :spaced="true" disabled></b-rate>
       <ul>
-        <li v-for="episode in season.episode_count" :key="episode">Episode {{ episode }}</li>
+        <li v-for="episode in season.episode_count" :key="episode">Aflevering {{ episode }}</li>
       </ul>
     </div>
   </div>
