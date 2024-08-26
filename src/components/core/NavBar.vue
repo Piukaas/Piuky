@@ -1,12 +1,12 @@
 <template>
   <div class="logo-container" @click="moveVan">
     <img :src="clouds" class="logo" />
-    <img :src="van" class="logo van" :class="{ 'move-left': isVanMoved }" />
+    <img :src="van" class="logo van" :class="{ 'van-animation': isVanMoved }" />
   </div>
 
   <div v-if="isMenuVisible" class="overlay" @click="toggleMenu">
-    <div class="menu" :class="{ 'fade-out': isMenuClosing }" @click.stop @animationend="handleAnimationEnd">
-      <i class="fas fa-xmark close" @click="toggleMenu"></i>
+    <div class="menu" :class="{ 'fade-out': isMenuClosing }" @click.stop>
+      <button type="button" class="btn-close" aria-label="Close" @click="toggleMenu"></button>
       <ul class="menu-items">
         <li>
           <div v-if="isAuthenticated" class="nav-link-container">
@@ -152,6 +152,7 @@ export default {
   watch: {
     "$route.query.login"(newVal) {
       if (newVal === "true") {
+        this.$router.replace({ query: {} });
         this.toggleLoginModal();
       }
     },
@@ -200,21 +201,13 @@ export default {
       this.isMenuClosing = false;
     },
 
-    handleAnimationEnd() {
-      if (this.isMenuClosing) {
-        this.isMenuOpen = false;
-        this.isMenuVisible = false;
-        this.isMenuClosing = false;
-      }
-    },
-
     switchLanguage() {
       this.currentLanguage = this.currentLanguage === Languages.NL ? Languages.EN : Languages.NL;
       this.$changeLanguage(this.currentLanguage);
     },
 
     switchTheme() {
-      this.currentTheme = this.currentTheme === "light" ? "dark" : "light";
+      this.currentTheme = this.currentTheme === Themes.LIGHT ? Themes.DARK : Themes.LIGHT;
       this.$changeTheme(this.currentTheme);
     },
 
@@ -268,8 +261,8 @@ export default {
   transform: scale(1.1);
 }
 
-.move-left {
-  animation: hop 0.5s ease-in-out, move-left 1s ease-in-out 0.5s, move-right 1s ease-in-out 1.5s forwards;
+.van-animation {
+  animation: hop 0.5s ease-in-out, move-left 1s ease-in-out 0.5s, move-from-right 1s ease-in-out 1.5s;
 }
 
 @keyframes hop {
@@ -291,7 +284,7 @@ export default {
   }
 }
 
-@keyframes move-right {
+@keyframes move-from-right {
   0% {
     transform: translateX(100vw);
   }

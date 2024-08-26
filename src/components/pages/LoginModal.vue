@@ -6,7 +6,7 @@
           <h3 class="modal-title">{{ $t("login") }}</h3>
           <button type="button" class="btn-close" aria-label="Close" @click="closeModal"></button>
         </div>
-        <form class="needs-validation" novalidate @submit.prevent="validateForm">
+        <form class="needs-validation" novalidate @submit="validateForm">
           <div class="modal-body">
             <div class="form-check">
               <label for="email" class="form-label required">{{ $t("email") }}</label>

@@ -161,6 +161,9 @@ $margin-values: 0px, 1px, 2px, 3px, 4px, 5px, 6px, 7px, 8px, 9px, 10px, 11px, 12
 }
 
 @mixin bulma-style($bg-color, $text-color) {
+  @media (max-width: 600px) {
+    margin: 20px !important;
+  }
   background-color: $bg-color !important;
   color: $text-color !important;
 }
@@ -197,6 +200,16 @@ $bulma-classes: (
 .btn-disc {
   width: 80px;
   height: 40px;
+}
+
+.close {
+  color: var(--dark-blue) !important;
+  cursor: pointer;
+  transition: all 0.75s ease-in-out;
+}
+
+.close:hover {
+  scale: 1.5;
 }
 
 @function get-css-var($name) {
