@@ -1,6 +1,6 @@
 <template>
   <div class="modal fade modal-lg" tabindex="-1" :class="{ show: localIsVisible }" :style="{ display: localIsVisible ? 'block' : 'none' }" @click.self="closeModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="modal-title">{{ $t("login") }}</h3>
@@ -23,12 +23,12 @@
             </div>
 
             <div v-if="error" class="p-2 alert alert-danger" role="alert">{{ $t(error) }}</div>
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-outline-danger" @click="closeModal">{{ $t("close") }}</button>
-              <button type="submit" class="btn btn-primary">{{ $t("login") }}</button>
-            </div>
           </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" @click="closeModal">{{ $t("close") }}</button>
+          <button type="submit" class="btn btn-primary">{{ $t("login") }}</button>
         </div>
       </div>
     </div>
@@ -118,7 +118,7 @@ export default {
             this.userService.setUsername(data.user.username);
 
             this.$emit("login-success", data.user.username); // Emit event with username
-
+            this.successMessage();
             this.closeModal();
           }
         })
@@ -129,6 +129,14 @@ export default {
             throw of(error);
           }
         });
+    },
+
+    successMessage() {
+      this.$buefy.notification.open({
+        duration: 5000,
+        message: this.$t("login_success"),
+        type: "is-success",
+      });
     },
   },
 };

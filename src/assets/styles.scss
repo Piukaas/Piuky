@@ -160,6 +160,27 @@ $margin-values: 0px, 1px, 2px, 3px, 4px, 5px, 6px, 7px, 8px, 9px, 10px, 11px, 12
   --theme-dark: #1f5f9b;
 }
 
+@mixin bulma-style($bg-color, $text-color) {
+  background-color: $bg-color !important;
+  color: $text-color !important;
+}
+
+$bulma-classes: (
+  "is-success": var(--success),
+  "is-primary": var(--primary),
+  "is-warning": var(--warning),
+  "is-danger": var(--danger),
+  "is-info": var(--info),
+  "is-link": var(--link),
+  "is-secondary": var(--secondary),
+);
+
+@each $class, $color in $bulma-classes {
+  .#{$class} {
+    @include bulma-style($color, var(--white));
+  }
+}
+
 // Buttons
 .btn {
   border-radius: 25px !important;

@@ -18,7 +18,7 @@
     <div class="row">
       <!-- Loading Skeletons -->
       <template v-if="loading">
-        <div v-for="i in 8" :key="i" class="card-container col-lg-3 col-md-6">
+        <div v-for="i in 8" :key="i" class="card-container col-lg-3 col-sm-6">
           <div class="card">
             <div class="card-body">
               <b-skeleton height="300px" class="skeleton-poster" />
@@ -31,7 +31,7 @@
       <!-- Results -->
       <template v-else-if="results.length">
         <h2>{{ $t("search_results") }}</h2>
-        <div v-for="result in results" :key="result.id" class="card-container col-lg-3 col-md-6" @click="goToCreate(result.id)">
+        <div v-for="result in results" :key="result.id" class="card-container col-lg-3 col-sm-6" @click="goToCreate(result.id)">
           <div class="card">
             <div class="card-body">
               <img :src="result.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : 'https://i.imgur.com/42uQxSx.png'" class="poster-img" :alt="result.title || result.name" />

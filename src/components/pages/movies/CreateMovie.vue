@@ -50,10 +50,11 @@ import Themes from "@/assets/enums/themes";
 import bluray from "@/assets/svg/blu-ray.svg";
 import disc4k from "@/assets/svg/disc-4k.svg";
 import dvd from "@/assets/svg/dvd.svg";
+import DateUtils from "@/assets/utils/date-utils";
 import UserService from "@/assets/utils/user-service";
 import ImageModal from "@/components/pages/movies/ImageModal.vue";
 import axios from "axios";
-import DateUtils from "@/assets/utils/date-utils";
+import { of } from "rxjs";
 
 export default {
   components: {
@@ -126,7 +127,7 @@ export default {
           this.item = response.data;
         })
         .catch((error) => {
-          console.error(error);
+          throw new of(error);
         });
     },
 

@@ -261,7 +261,7 @@ export default {
 }
 
 .move-left {
-  animation: hop 0.5s ease-in-out, move-left 1s ease-in-out 0.5s, move-right 1s ease-in-out 1.5s;
+  animation: hop 0.5s ease-in-out, move-left 1s ease-in-out 0.5s, move-right 1s ease-in-out 1.5s forwards;
 }
 
 @keyframes hop {

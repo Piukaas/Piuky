@@ -174,5 +174,9 @@
   "minutes_per_episode": {
     "nl": "minuten per aflevering",
     "en": "minutes per episode"
+  },
+  "login_success": {
+    "nl": "Inloggen is gelukt!",
+    "en": "Login was successfull!"
   }
 }

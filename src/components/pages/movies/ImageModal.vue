@@ -1,6 +1,6 @@
 <template>
   <div class="modal fade modal-lg" tabindex="-1" :class="{ show: isVisible }" :style="{ display: isVisible ? 'block' : 'none' }" @click.self="closeModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="modal-title">{{ $t(type === "logo" ? "choose_logo" : "choose_poster") }}</h3>
@@ -9,7 +9,7 @@
         <div class="modal-body">
           <div v-if="!images?.length" class="p-2 alert alert-danger" role="alert">{{ $t("no_results") }}</div>
           <div class="row">
-            <div v-for="image in images" :key="image.file_path" class="card-container col-lg-4 col-6">
+            <div v-for="image in images" :key="image.file_path" class="card-container col-lg-3 col-sm-4 col-6">
               <div class="card">
                 <div class="card-body">
                   <img
