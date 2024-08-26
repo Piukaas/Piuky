@@ -7,9 +7,16 @@
         <i class="fas fa-heart"></i>
       </button>
     </b-tooltip>
-    <button class="btn btn-outline-disc disc-size" :class="{ active: activeButtons.includes('disc4k') }" @click="toggleActiveButton('disc4k')"><img :src="disc4k" /></button>
-    <button class="btn btn-outline-disc disc-size" :class="{ active: activeButtons.includes('bluray') }" @click="toggleActiveButton('bluray')"><img :src="bluray" /></button>
-    <button class="btn btn-outline-disc disc-size" :class="{ active: activeButtons.includes('dvd') }" @click="toggleActiveButton('dvd')"><img :src="dvd" /></button>
+
+    <button class="btn btn-outline-disc disc-size" :class="{ active: activeButtons.includes('disc4k') }" @click="toggleActiveButton('disc4k')">
+      <img :src="disc4k" />
+    </button>
+    <button class="btn btn-outline-disc disc-size" :class="{ active: activeButtons.includes('bluray') }" @click="toggleActiveButton('bluray')">
+      <img :src="bluray" />
+    </button>
+    <button class="btn btn-outline-disc disc-size" :class="{ active: activeButtons.includes('dvd') }" @click="toggleActiveButton('dvd')">
+      <img :src="dvd" />
+    </button>
 
     <h1>{{ item.title || item.name }}</h1>
     <img v-if="posterPath" :src="`https://image.tmdb.org/t/p/w500${posterPath}`" class="poster-img" :alt="item.title || item.name" />
@@ -34,8 +41,8 @@
     </div>
   </div>
 
-  <image-modal :is-visible="isPosterModalVisible" :images="item?.images?.posters" type="poster" @close="togglePosterModal" @image-clicked="setPosterValue" />
-  <image-modal :is-visible="isLogoModalVisible" :images="item?.images?.logos" type="logo" @close="toggleLogoModal" @image-clicked="setLogoValue" />
+  <image-modal :is-visible="isPosterModalVisible" :images="item?.images?.posters" type="poster" @update:isVisible="isPosterModalVisible = $event" @image-clicked="setPosterValue" />
+  <image-modal :is-visible="isLogoModalVisible" :images="item?.images?.logos" type="logo" @update:isVisible="isLogoModalVisible = $event" @image-clicked="setLogoValue" />
 </template>
 
 <script>
@@ -62,8 +69,6 @@ export default {
       item: null,
       isPosterModalVisible: false,
       isLogoModalVisible: false,
-      modalImages: [],
-      modalType: "",
       userService: new UserService(),
       activeButtons: [],
       posterPath: "",

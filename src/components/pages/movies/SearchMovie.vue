@@ -9,7 +9,7 @@
     </div>
 
     <div class="input-container">
-      <input class="form-control w-auto" type="text" v-model="searchQuery" :placeholder="$t('search_tmdb')" @keyup.enter="search" />
+      <input class="form-control" type="text" v-model="searchQuery" :placeholder="$t('search_tmdb')" @keyup.enter="search" />
       <button class="btn btn-primary btn-round" @click="search">
         <i class="fas fa-magnifying-glass"></i>
       </button>

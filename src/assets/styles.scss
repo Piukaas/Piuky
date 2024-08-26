@@ -7,6 +7,13 @@
 }
 
 // Base Styles
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 body {
   font-family: "CustomFont", sans-serif !important;
   background-color: var(--background) !important;
@@ -39,7 +46,23 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--black);
+  background-color: var(--blackwhite);
+}
+
+.modal {
+  ::-webkit-scrollbar-track {
+    background: var(--beige) !important;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-right: 1px solid var(--beige) !important;
+    background: var(--dark-blue) !important;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--black) !important;
+  }
 }
 
 img {
@@ -129,6 +152,9 @@ $margin-values: 0px, 1px, 2px, 3px, 4px, 5px, 6px, 7px, 8px, 9px, 10px, 11px, 12
   --primary: #43a19a;
   --primary-light: #6dbcb5;
   --primary-dark: #2c7b74;
+  --blackwhite: #eee;
+  --blackwhite-light: #f6f0e0;
+  --blackwhite-dark: #191919;
   --theme: #378ae2;
   --theme-light: #c5e2f8;
   --theme-dark: #1f5f9b;
@@ -150,16 +176,6 @@ $margin-values: 0px, 1px, 2px, 3px, 4px, 5px, 6px, 7px, 8px, 9px, 10px, 11px, 12
 .btn-disc {
   width: 80px;
   height: 40px;
-}
-
-.close {
-  color: var(--text) !important;
-  cursor: pointer;
-  transition: all 0.75s ease-in-out;
-}
-
-.close:hover {
-  scale: 1.5;
 }
 
 @function get-css-var($name) {
@@ -269,25 +285,32 @@ $button-colors: (
 }
 
 // Modal
-.modal-card {
-  border: 3px solid var(--text) !important;
+.modal-content {
+  border: 3px solid var(--dark-blue) !important;
   border-radius: 15px !important;
 }
 
-.modal-card-head {
-  background-color: var(--background) !important;
+[theme="dark"] .modal-content {
+  border: 3px solid var(--black) !important;
 }
 
-.modal-card-title {
-  color: var(--text) !important;
+.modal-header {
+  background-color: var(--beige) !important;
 }
 
-.modal-card-body {
-  background-color: var(--background) !important;
+.modal-title {
+  color: var(--dark-blue) !important;
 }
 
-.modal-card-foot {
-  background-color: var(--background) !important;
+.modal-body {
+  max-height: 70vh;
+  overflow-y: auto;
+  background-color: var(--beige) !important;
+  color: var(--dark-blue) !important;
+}
+
+.modal-footer {
+  background-color: var(--beige) !important;
   justify-content: flex-end !important;
   gap: 10px;
 }

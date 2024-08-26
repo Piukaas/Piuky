@@ -76,7 +76,7 @@
     </div>
   </div>
 
-  <login-modal :is-visible="isLoginModalVisible" @close="toggleLoginModal" @login-success="updateUsername" />
+  <login-modal :is-visible="isLoginModalVisible" @update:isVisible="isLoginModalVisible = $event" @close="toggleLoginModal" @login-success="updateUsername" />
 </template>
 
 <script>
@@ -308,9 +308,9 @@ export default {
   left: 20px;
   width: 220px;
   height: fit-content;
-  border: 3px solid var(--text) !important;
-  background-color: var(--background) !important;
-  color: var(--text) !important;
+  border: 3px solid var(--dark-blue) !important;
+  background-color: var(--beige) !important;
+  color: var(--dark-blue) !important;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -318,6 +318,10 @@ export default {
   border-radius: 25px;
   animation: fadeIn 0.5s ease forwards;
   transition: all 0.3s ease;
+}
+
+[theme="dark"] .menu {
+  border: 3px solid var(--black) !important;
 }
 
 .fade-out {
@@ -367,7 +371,7 @@ export default {
 }
 
 .nav-link {
-  color: var(--text);
+  color: var(--dark-blue);
   transition: all 0.3s ease;
   position: relative;
   display: inline-block;
@@ -375,7 +379,7 @@ export default {
 
 .nav-link:hover {
   cursor: pointer;
-  color: var(--text);
+  color: var(--dark-blue);
   transform: translateX(10px);
 }
 
@@ -386,7 +390,7 @@ export default {
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: var(--text);
+  background-color: var(--dark-blue);
   transform: scaleX(0);
   transform-origin: bottom right;
   transition: transform 0.25s ease-out;

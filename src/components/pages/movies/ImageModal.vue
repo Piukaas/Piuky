@@ -1,12 +1,13 @@
 <template>
-  <b-modal v-model="localIsVisible" has-modal-card trap-focus :destroy-on-hide="false" aria-role="dialog" aria-label="Image Modal" close-button-aria-label="Close" aria-modal>
-    <form class="needs-validation" novalidate @submit.prevent="validateForm">
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">{{ $t(type === "logo" ? "choose_logo" : "choose_poster") }}</p>
-          <i class="fas fa-xmark close" @click="closeModal"></i>
-        </header>
-        <section class="modal-card-body">
+  <div class="modal fade modal-lg" tabindex="-1" :class="{ show: isVisible }" :style="{ display: isVisible ? 'block' : 'none' }" @click.self="closeModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">{{ $t(type === "logo" ? "choose_logo" : "choose_poster") }}</h3>
+          <button type="button" class="btn-close" aria-label="Close" @click="closeModal"></button>
+        </div>
+        <div class="modal-body">
+          <div v-if="!images?.length" class="p-2 alert alert-danger" role="alert">{{ $t("no_results") }}</div>
           <div class="row">
             <div v-for="image in images" :key="image.file_path" class="card-container col-lg-4 col-6">
               <div class="card">
@@ -19,16 +20,14 @@
                 </div>
               </div>
             </div>
-
-            <div v-if="!images?.length" class="alert alert-danger" role="alert">{{ $t("no_results") }}</div>
           </div>
-        </section>
-        <footer class="modal-card-foot">
+        </div>
+        <div class="modal-footer">
           <button type="button" class="btn btn-outline-danger" @click="closeModal">{{ $t("close") }}</button>
-        </footer>
+        </div>
       </div>
-    </form>
-  </b-modal>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -50,37 +49,14 @@ export default {
     },
   },
 
-  data() {
-    return {
-      localIsVisible: this.isVisible,
-      email: "",
-      password: "",
-    };
-  },
-
-  watch: {
-    isVisible(newVal) {
-      this.localIsVisible = newVal;
-    },
-
-    localIsVisible(newVal) {
-      this.$emit("update:isVisible", newVal);
-    },
-  },
-
-  computed: {
-    maskedPassword() {
-      return "*".repeat(this.password.length);
-    },
-  },
-
   methods: {
     closeModal() {
-      this.localIsVisible = false;
+      this.$emit("update:isVisible", false);
     },
 
     emitImagePath(filePath) {
       this.$emit("image-clicked", filePath);
+      this.closeModal();
     },
   },
 };

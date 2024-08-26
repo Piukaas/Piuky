@@ -1,35 +1,38 @@
 <template>
-  <b-modal v-model="localIsVisible" has-modal-card trap-focus :destroy-on-hide="false" aria-role="dialog" aria-label="Login Modal" close-button-aria-label="Close" aria-modal>
-    <form class="needs-validation" novalidate @submit.prevent="validateForm">
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">{{ $t("login") }}</p>
-          <i class="fas fa-xmark close" @click="closeModal"></i>
-        </header>
-        <section class="modal-card-body">
-          <div class="form-check">
-            <label for="email" class="form-label required">{{ $t("email") }}</label>
-            <input type="email" class="form-control" id="email" v-model="email" required @blur="validateField" />
-            <div class="invalid-feedback">{{ $t("email_invalid") }}</div>
-            <div class="valid-feedback">{{ email + $t("email_valid") }}</div>
-          </div>
+  <div class="modal fade modal-lg" tabindex="-1" :class="{ show: localIsVisible }" :style="{ display: localIsVisible ? 'block' : 'none' }" @click.self="closeModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">{{ $t("login") }}</h3>
+          <button type="button" class="btn-close" aria-label="Close" @click="closeModal"></button>
+        </div>
+        <div class="modal-body">
+          <form class="needs-validation" novalidate @submit.prevent="validateForm">
+            <div class="form-check">
+              <label for="email" class="form-label required">{{ $t("email") }}</label>
+              <input type="email" class="form-control" id="email" v-model="email" required @blur="validateField" />
+              <div class="invalid-feedback">{{ $t("email_invalid") }}</div>
+              <div class="valid-feedback">{{ email + $t("email_valid") }}</div>
+            </div>
 
-          <div class="form-check">
-            <label for="password" class="form-label required">{{ $t("password") }}</label>
-            <input type="password" class="form-control" id="password" v-model="password" required @blur="validateField" />
-            <div class="invalid-feedback">{{ $t("password_invalid") }}</div>
-            <div class="valid-feedback">{{ maskedPassword + $t("password_valid") }}</div>
-          </div>
+            <div class="form-check">
+              <label for="password" class="form-label required">{{ $t("password") }}</label>
+              <input type="password" class="form-control" id="password" v-model="password" required @blur="validateField" />
+              <div class="invalid-feedback">{{ $t("password_invalid") }}</div>
+              <div class="valid-feedback">{{ maskedPassword + $t("password_valid") }}</div>
+            </div>
 
-          <div v-if="error" class="alert alert-danger" role="alert">{{ $t(error) }}</div>
-        </section>
-        <footer class="modal-card-foot">
-          <button type="button" class="btn btn-outline-danger" @click="closeModal">{{ $t("close") }}</button>
-          <button type="submit" class="btn btn-primary">{{ $t("login") }}</button>
-        </footer>
+            <div v-if="error" class="p-2 alert alert-danger" role="alert">{{ $t(error) }}</div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-danger" @click="closeModal">{{ $t("close") }}</button>
+              <button type="submit" class="btn btn-primary">{{ $t("login") }}</button>
+            </div>
+          </form>
+        </div>
       </div>
-    </form>
-  </b-modal>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -71,7 +74,6 @@ export default {
     },
   },
 
-  // LoginModal.vue
   methods: {
     closeModal() {
       this.localIsVisible = false;
