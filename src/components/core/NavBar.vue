@@ -5,8 +5,8 @@
   </div>
 
   <div v-if="isMenuVisible" class="overlay" @click="toggleMenu">
-    <div class="menu" :class="{ 'fade-out': isMenuClosing }" @click.stop>
-      <button type="button" class="btn-close" aria-label="Close" @click="toggleMenu"></button>
+    <div class="menu" :class="{ 'fade-out': isMenuClosing }" @click.stop @animationend="handleAnimationEnd">
+      <i class="fas fa-xmark close" @click="toggleMenu"></i>
       <ul class="menu-items">
         <li>
           <div v-if="isAuthenticated" class="nav-link-container">
@@ -131,6 +131,10 @@ export default {
   },
 
   created() {
+    if (this.userService.isAuthenticated()) {
+      this.checkTokenExpiration();
+    }
+
     this.isAuthenticated = this.userService.isAuthenticated();
     this.username = localStorage.getItem("username") || "";
 
@@ -143,10 +147,6 @@ export default {
     this.userService.username$.subscribe((username) => {
       this.username = username || "";
     });
-
-    if (this.userService.isAuthenticated()) {
-      this.checkTokenExpiration();
-    }
   },
 
   watch: {
@@ -199,6 +199,14 @@ export default {
       this.isMenuOpen = false;
       this.isMenuVisible = false;
       this.isMenuClosing = false;
+    },
+
+    handleAnimationEnd() {
+      if (this.isMenuClosing) {
+        this.isMenuOpen = false;
+        this.isMenuVisible = false;
+        this.isMenuClosing = false;
+      }
     },
 
     switchLanguage() {
@@ -262,7 +270,7 @@ export default {
 }
 
 .van-animation {
-  animation: hop 0.5s ease-in-out, move-left 1s ease-in-out 0.5s, move-from-right 1s ease-in-out 1.5s;
+  animation: hop 0.5s ease-in-out, move-left 1s ease-in-out 0.5s, move-from-right 1s ease-in-out 1.5s forwards;
 }
 
 @keyframes hop {
