@@ -2,14 +2,25 @@
   <div>
     <div class="header-container">
       <h1>{{ $t("add_new", { item: $t(searchType) }) }}</h1>
-      <select v-model="searchType" class="form-select w-auto" aria-label="Default select example" @change="search">
+      <select
+        v-model="searchType"
+        class="form-select w-auto"
+        aria-label="Default select example"
+        @change="search"
+      >
         <option value="movie">{{ $t("movies") }}</option>
         <option value="tv">{{ $t("tv-shows") }}</option>
       </select>
     </div>
 
     <div class="input-container">
-      <input class="form-control" type="text" v-model="searchQuery" :placeholder="$t('search_tmdb')" @keyup.enter="search" />
+      <input
+        class="form-control"
+        type="text"
+        v-model="searchQuery"
+        :placeholder="$t('search_tmdb')"
+        @keyup.enter="search"
+      />
       <button class="btn btn-primary btn-round" @click="search">
         <i class="fas fa-magnifying-glass"></i>
       </button>
@@ -18,7 +29,7 @@
     <div class="row">
       <!-- Loading Skeletons -->
       <template v-if="loading">
-        <div v-for="i in 8" :key="i" class="card-container col-lg-3 col-sm-6">
+        <div v-for="i in 8" :key="i" class="card-container col-lg-2 col-sm-6">
           <div class="card">
             <div class="card-body">
               <b-skeleton height="300px" class="skeleton-poster" />
@@ -31,10 +42,23 @@
       <!-- Results -->
       <template v-else-if="results.length">
         <h2>{{ $t("search_results") }}</h2>
-        <div v-for="result in results" :key="result.id" class="card-container col-lg-3 col-sm-6" @click="goToCreate(result.id)">
+        <div
+          v-for="result in results"
+          :key="result.id"
+          class="card-container col-lg-2 col-sm-6"
+          @click="goToCreate(result.id)"
+        >
           <div class="card">
             <div class="card-body">
-              <img :src="result.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : 'https://i.imgur.com/42uQxSx.png'" class="poster-img" :alt="result.title || result.name" />
+              <img
+                :src="
+                  result.poster_path
+                    ? `https://image.tmdb.org/t/p/w500${result.poster_path}`
+                    : 'https://i.imgur.com/42uQxSx.png'
+                "
+                class="poster-img"
+                :alt="result.title || result.name"
+              />
             </div>
           </div>
           <h3>{{ result.title || result.name }}</h3>
@@ -46,6 +70,8 @@
         <h2>{{ $t("no_results") }}</h2>
       </template>
     </div>
+
+    <hr class="mb-4" />
 
     <router-view />
   </div>

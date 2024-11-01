@@ -1,18 +1,37 @@
 <template>
   <div class="logo-container" @click="moveVan">
     <img :src="clouds" class="logo" />
-    <img :src="van" class="logo van" :class="{ 'van-animation': isVanMoved }" @animationend="handleAnimationEnd" />
+    <img
+      :src="van"
+      class="logo van"
+      :class="{ 'van-animation': isVanMoved }"
+      @animationend="handleAnimationEnd"
+    />
   </div>
 
   <div v-if="isMenuVisible" class="overlay" @click="toggleMenu">
-    <div class="menu" :class="{ 'fade-out': isMenuClosing }" @click.stop @animationend="handleMenuAnimationEnd">
+    <div
+      class="menu"
+      :class="{ 'fade-out': isMenuClosing }"
+      @click.stop
+      @animationend="handleMenuAnimationEnd"
+    >
       <i class="fas fa-xmark close" @click="toggleMenu"></i>
       <ul class="menu-items">
         <li>
           <div v-if="isAuthenticated" class="nav-link-container">
-            <router-link @click="toggleMenu" to="/account" class="nav-link"> <i class="fa-solid fa-user-astronaut"></i> {{ username }} </router-link>
-            <b-tooltip :label="$t('logout')" :type="currentTheme === Themes.LIGHT ? 'is-dark' : 'is-light'" position="is-right">
-              <button @click="logout" class="btn btn-outline-danger btn-round btn-sm">
+            <router-link @click="toggleMenu" to="/account" class="nav-link">
+              <i class="fa-solid fa-user-astronaut"></i> {{ username }}
+            </router-link>
+            <b-tooltip
+              :label="$t('logout')"
+              :type="currentTheme === Themes.LIGHT ? 'is-dark' : 'is-light'"
+              position="is-right"
+            >
+              <button
+                @click="logout"
+                class="btn btn-outline-danger btn-round btn-sm"
+              >
                 <i class="fa fa-power-off"></i>
               </button>
             </b-tooltip>
@@ -23,32 +42,62 @@
         </li>
         <hr />
         <li>
-          <router-link @click="toggleMenu" to="/" class="nav-link" :class="isActiveRoute('/') ? 'router-link-active' : ''">
+          <router-link
+            @click="toggleMenu"
+            to="/"
+            class="nav-link"
+            :class="isActiveRoute('/') ? 'router-link-active' : ''"
+          >
             {{ $t("home") }}
           </router-link>
         </li>
         <li>
-          <router-link @click="toggleMenu" to="/movies" class="nav-link" :class="isActiveRoute('/movies') ? 'router-link-active' : ''">
+          <router-link
+            @click="toggleMenu"
+            to="/movies"
+            class="nav-link"
+            :class="isActiveRoute('/movies') ? 'router-link-active' : ''"
+          >
             {{ `${$t("movies")} & ${$t("tv-shows")}` }}
           </router-link>
         </li>
         <li>
-          <router-link @click="toggleMenu" to="/games" class="nav-link" :class="isActiveRoute('/games') ? 'router-link-active' : ''">
+          <router-link
+            @click="toggleMenu"
+            to="/games"
+            class="nav-link"
+            :class="isActiveRoute('/games') ? 'router-link-active' : ''"
+          >
             {{ $t("games") }}
           </router-link>
         </li>
         <li>
-          <router-link @click="toggleMenu" to="/maths" class="nav-link" :class="isActiveRoute('/maths') ? 'router-link-active' : ''">
+          <router-link
+            @click="toggleMenu"
+            to="/maths"
+            class="nav-link"
+            :class="isActiveRoute('/maths') ? 'router-link-active' : ''"
+          >
             {{ $t("maths") }}
           </router-link>
         </li>
         <li>
-          <router-link @click="toggleMenu" to="/drawings" class="nav-link" :class="isActiveRoute('/drawings') ? 'router-link-active' : ''">
+          <router-link
+            @click="toggleMenu"
+            to="/drawings"
+            class="nav-link"
+            :class="isActiveRoute('/drawings') ? 'router-link-active' : ''"
+          >
             {{ $t("drawings") }}
           </router-link>
         </li>
         <li>
-          <router-link @click="toggleMenu" to="/cars" class="nav-link" :class="isActiveRoute('/cars') ? 'router-link-active' : ''">
+          <router-link
+            @click="toggleMenu"
+            to="/cars"
+            class="nav-link"
+            :class="isActiveRoute('/cars') ? 'router-link-active' : ''"
+          >
             {{ $t("cars") }}
           </router-link>
         </li>
@@ -58,7 +107,11 @@
             :left-value="nlFlag"
             :right-value="ukFlag"
             :type="SwitchTypes.SVG"
-            :default-selection="currentLanguage === Languages.NL ? Directions.LEFT : Directions.RIGHT"
+            :default-selection="
+              currentLanguage === Languages.NL
+                ? Directions.LEFT
+                : Directions.RIGHT
+            "
             @click="switchLanguage"
           />
         </li>
@@ -68,7 +121,9 @@
             left-value="fas fa-sun"
             right-value="fas fa-moon"
             :type="SwitchTypes.ICON"
-            :default-selection="currentTheme === Themes.LIGHT ? Directions.LEFT : Directions.RIGHT"
+            :default-selection="
+              currentTheme === Themes.LIGHT ? Directions.LEFT : Directions.RIGHT
+            "
             @click="switchTheme"
           />
         </li>
@@ -76,7 +131,12 @@
     </div>
   </div>
 
-  <login-modal :is-visible="isLoginModalVisible" @update:isVisible="isLoginModalVisible = $event" @close="toggleLoginModal" @login-success="updateUsername" />
+  <login-modal
+    :is-visible="isLoginModalVisible"
+    @update:isVisible="isLoginModalVisible = $event"
+    @close="toggleLoginModal"
+    @login-success="updateUsername"
+  />
 </template>
 
 <script>
@@ -202,7 +262,10 @@ export default {
     },
 
     handleAnimationEnd(event) {
-      if (event.animationName === "move-left" || event.animationName === "move-from-right") {
+      if (
+        event.animationName === "move-left" ||
+        event.animationName === "move-from-right"
+      ) {
         this.isVanMoved = false;
       }
     },
@@ -216,12 +279,14 @@ export default {
     },
 
     switchLanguage() {
-      this.currentLanguage = this.currentLanguage === Languages.NL ? Languages.EN : Languages.NL;
+      this.currentLanguage =
+        this.currentLanguage === Languages.NL ? Languages.EN : Languages.NL;
       this.$changeLanguage(this.currentLanguage);
     },
 
     switchTheme() {
-      this.currentTheme = this.currentTheme === Themes.LIGHT ? Themes.DARK : Themes.LIGHT;
+      this.currentTheme =
+        this.currentTheme === Themes.LIGHT ? Themes.DARK : Themes.LIGHT;
       this.$changeTheme(this.currentTheme);
     },
 
@@ -276,7 +341,8 @@ export default {
 }
 
 .van-animation {
-  animation: hop 0.5s ease-in-out, move-left 1s ease-in-out 0.5s, move-from-right 1s ease-in-out 1.5s forwards;
+  animation: hop 0.5s ease-in-out, move-left 1s ease-in-out 0.5s,
+    move-from-right 1s ease-in-out 1.5s forwards;
 }
 
 @keyframes hop {

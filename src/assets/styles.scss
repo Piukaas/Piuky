@@ -76,7 +76,9 @@ hr {
 }
 
 // Margin variable classes
-$margin-values: 0px, 1px, 2px, 3px, 4px, 5px, 6px, 7px, 8px, 9px, 10px, 11px, 12px, 13px, 14px, 15px, 16px, 17px, 18px, 19px, 20px, 21px, 22px, 23px, 24px, 25px;
+$margin-values: 0px, 1px, 2px, 3px, 4px, 5px, 6px, 7px, 8px, 9px, 10px, 11px,
+  12px, 13px, 14px, 15px, 16px, 17px, 18px, 19px, 20px, 21px, 22px, 23px, 24px,
+  25px;
 
 @each $value in $margin-values {
   $index: index($margin-values, $value);
@@ -354,7 +356,7 @@ $button-colors: (
   border-radius: 25px;
   margin-top: 5px;
   margin-bottom: 5px;
-  height: auto;
+  height: 200px;
 }
 
 .logo-img {

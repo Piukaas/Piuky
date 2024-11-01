@@ -1,20 +1,61 @@
 <template>
-  <button type="button" class="btn btn-switch" @click="toggle" @mouseover="handleMouseOver" @mouseleave="handleMouseLeave">
+  <button
+    type="button"
+    class="btn btn-switch"
+    @click="toggle"
+    @mouseover="handleMouseOver"
+    @mouseleave="handleMouseLeave"
+  >
     <div class="switch-container">
       <template v-if="type === SwitchTypes.SVG">
-        <img :src="leftValue" class="flag-size" :class="{ active: currentSelection === Directions.LEFT }" :style="[leftStyle, hover && hoverStyle]" />
+        <img
+          :src="leftValue"
+          class="flag-size"
+          :class="{ active: currentSelection === Directions.LEFT }"
+          :style="[leftStyle, hover && hoverStyle]"
+        />
         <div class="separator"></div>
-        <img :src="rightValue" class="flag-size" :class="{ active: currentSelection === Directions.RIGHT }" :style="[rightStyle, hover && hoverStyle]" />
+        <img
+          :src="rightValue"
+          class="flag-size"
+          :class="{ active: currentSelection === Directions.RIGHT }"
+          :style="[rightStyle, hover && hoverStyle]"
+        />
       </template>
       <template v-else-if="type === SwitchTypes.ICON">
-        <i class="icon-size" :class="[leftValue, { active: currentSelection === Directions.LEFT }]" :style="[leftStyle, hover && hoverStyle]"></i>
+        <i
+          class="icon-size"
+          :class="[leftValue, { active: currentSelection === Directions.LEFT }]"
+          :style="[leftStyle, hover && hoverStyle]"
+        ></i>
         <div class="separator"></div>
-        <i class="icon-size" :class="[rightValue, { active: currentSelection === Directions.RIGHT }]" :style="[rightStyle, hover && hoverStyle]"></i>
+        <i
+          class="icon-size"
+          :class="[
+            rightValue,
+            { active: currentSelection === Directions.RIGHT },
+          ]"
+          :style="[rightStyle, hover && hoverStyle]"
+        ></i>
       </template>
       <template v-else>
-        <span :class="{ 'switch-txt': true, active: currentSelection === Directions.LEFT }" :style="[leftStyle, hover && hoverStyle]">{{ leftValue }}</span>
+        <span
+          :class="{
+            'switch-txt': true,
+            active: currentSelection === Directions.LEFT,
+          }"
+          :style="[leftStyle, hover && hoverStyle]"
+          >{{ leftValue }}</span
+        >
         <div class="separator"></div>
-        <span :class="{ 'switch-txt': true, active: currentSelection === Directions.RIGHT }" :style="[rightStyle, hover && hoverStyle]">{{ rightValue }}</span>
+        <span
+          :class="{
+            'switch-txt': true,
+            active: currentSelection === Directions.RIGHT,
+          }"
+          :style="[rightStyle, hover && hoverStyle]"
+          >{{ rightValue }}</span
+        >
       </template>
     </div>
     <div class="overlay" :class="overlayClass" :style="overlayStyle"></div>
@@ -39,7 +80,8 @@ export default {
     type: {
       type: String,
       default: SwitchTypes.ICON,
-      validator: (value) => [SwitchTypes.SVG, SwitchTypes.ICON, SwitchTypes.TEXT].includes(value),
+      validator: (value) =>
+        [SwitchTypes.SVG, SwitchTypes.ICON, SwitchTypes.TEXT].includes(value),
     },
     colorClass: {
       type: String,
@@ -108,20 +150,29 @@ export default {
 
     leftStyle() {
       return {
-        color: this.currentSelection === Directions.LEFT ? "var(--white)" : "var(--black)",
+        color:
+          this.currentSelection === Directions.LEFT
+            ? "var(--white)"
+            : "var(--black)",
       };
     },
 
     rightStyle() {
       return {
-        color: this.currentSelection === Directions.RIGHT ? "var(--white)" : "var(--black)",
+        color:
+          this.currentSelection === Directions.RIGHT
+            ? "var(--white)"
+            : "var(--black)",
       };
     },
   },
 
   methods: {
     toggle() {
-      this.currentSelection = this.currentSelection === Directions.LEFT ? Directions.RIGHT : Directions.LEFT;
+      this.currentSelection =
+        this.currentSelection === Directions.LEFT
+          ? Directions.RIGHT
+          : Directions.LEFT;
     },
 
     handleResize() {
