@@ -1,94 +1,90 @@
 <template>
-  <div v-if="item">
-    <button class="btn btn-primary mr-10" @click="togglePosterModal">
-      <i class="fas fa-image"></i> {{ $t("choose_poster") }}
-    </button>
-    <button class="btn btn-primary" @click="toggleLogoModal">
-      <i class="fas fa-icons"></i> {{ $t("choose_logo") }}
-    </button>
-    <b-tooltip
-      :label="
-        activeButtons.includes('wishlist')
-          ? $t('remove_from_wishlist')
-          : $t('add_to_wishlist')
-      "
-      :type="currentTheme === Themes.LIGHT ? 'is-dark' : 'is-light'"
-      position="is-top"
-    >
-      <button
-        class="btn btn-outline-danger btn-round"
-        :class="{ active: activeButtons.includes('wishlist') }"
-        @click="toggleActiveButton('wishlist')"
-      >
-        <i class="fas fa-heart"></i>
-      </button>
-    </b-tooltip>
+  <div v-if="item" class="row">
+    <div v-if="logoPath || posterPath" class="col-lg-3">
+      <img
+        v-if="logoPath"
+        :src="`https://image.tmdb.org/t/p/w500${logoPath}`"
+        class="logo-img mb-2"
+        :alt="item.title || item.name"
+      />
 
-    <button
-      class="btn btn-outline-disc disc-size"
-      :class="{ active: activeButtons.includes('disc4k') }"
-      @click="toggleActiveButton('disc4k')"
-    >
-      <img :src="disc4k" />
-    </button>
-    <button
-      class="btn btn-outline-disc disc-size"
-      :class="{ active: activeButtons.includes('bluray') }"
-      @click="toggleActiveButton('bluray')"
-    >
-      <img :src="bluray" />
-    </button>
-    <button
-      class="btn btn-outline-disc disc-size"
-      :class="{ active: activeButtons.includes('dvd') }"
-      @click="toggleActiveButton('dvd')"
-    >
-      <img :src="dvd" />
-    </button>
+      <img
+        v-if="posterPath"
+        :src="`https://image.tmdb.org/t/p/w500${posterPath}`"
+        class="poster-img"
+        :alt="item.title || item.name"
+      />
+    </div>
 
-    <h1>{{ item.title || item.name }}</h1>
-    <img
-      v-if="posterPath"
-      :src="`https://image.tmdb.org/t/p/w500${posterPath}`"
-      class="poster-img"
-      :alt="item.title || item.name"
-    />
-    <img
-      v-if="logoPath"
-      :src="`https://image.tmdb.org/t/p/w500${logoPath}`"
-      class="logo-img"
-      :alt="item.title || item.name"
-    />
-    <p>{{ item.tagline }}</p>
-    <p v-if="searchType === 'movie'">
-      {{ dateUtils.formatDate(item.release_date) }}
-    </p>
-    <p v-else>
-      {{ dateUtils.formatDate(item.first_air_date) }} t/m
-      {{ dateUtils.formatDate(item.last_air_date) }}
-    </p>
-    <p>{{ runtimeText }}</p>
-    <p>
-      {{ $t(item.status ? item.status.toLowerCase().replace(/ /g, "_") : "") }}
-    </p>
-    <b-rate
-      v-model="item.vote_average"
-      :show-score="true"
-      icon="fas fa-bone"
-      :max="10"
-      icon-pack="fas"
-      :spaced="true"
-      disabled
-    ></b-rate>
-    <a :href="`https://www.youtube.com/watch?v=${trailer}`" target="_blank"
-      >Trailer</a
-    >
-    <p>{{ item.overview }}</p>
-    <p v-for="genre in item.genres" :key="genre.id">{{ genre.name }}</p>
-    <div v-for="season in item.seasons" :key="season._id">
-      <h3>{{ season.name }}</h3>
-      <p>{{ season.overview }}</p>
-      <p>{{ dateUtils.formatDate(season.air_date) }}</p>
+    <div class="col-lg-9">
+      <div class="buttons">
+        <button class="btn btn-primary" @click="saveItem">
+          <i class="fas fa-save"></i> {{ $t("save") }}
+        </button>
+        <button class="btn btn-primary" @click="togglePosterModal">
+          <i class="fas fa-image"></i> {{ $t("choose_poster") }}
+        </button>
+
+        <button class="btn btn-primary" @click="toggleLogoModal">
+          <i class="fas fa-icons"></i> {{ $t("choose_logo") }}
+        </button>
+
+        <b-tooltip
+          :label="
+            activeButtons.includes('wishlist')
+              ? $t('remove_from_wishlist')
+              : $t('add_to_wishlist')
+          "
+          :type="currentTheme === Themes.LIGHT ? 'is-dark' : 'is-light'"
+          position="is-top"
+        >
+          <button
+            class="btn btn-outline-danger btn-round"
+            :class="{ active: activeButtons.includes('wishlist') }"
+            @click="toggleActiveButton('wishlist')"
+          >
+            <i class="fas fa-heart"></i>
+          </button>
+        </b-tooltip>
+
+        <button
+          class="btn btn-outline-disc disc-size"
+          :class="{ active: activeButtons.includes('disc4k') }"
+          @click="toggleActiveButton('disc4k')"
+        >
+          <img :src="disc4k" />
+        </button>
+        <button
+          class="btn btn-outline-disc disc-size"
+          :class="{ active: activeButtons.includes('bluray') }"
+          @click="toggleActiveButton('bluray')"
+        >
+          <img :src="bluray" />
+        </button>
+        <button
+          class="btn btn-outline-disc disc-size"
+          :class="{ active: activeButtons.includes('dvd') }"
+          @click="toggleActiveButton('dvd')"
+        >
+          <img :src="dvd" />
+        </button>
+      </div>
+
+      <h1>{{ item.title || item.name }}</h1>
+      <p>{{ item.tagline }}</p>
+      <p v-if="searchType === 'movie'">
+        {{ dateUtils.formatDate(item.release_date) }}
+      </p>
+      <p v-else>
+        {{ dateUtils.formatDate(item.first_air_date) }} t/m
+        {{ dateUtils.formatDate(item.last_air_date) }}
+      </p>
+      <p>{{ runtimeText }}</p>
+      <p>
+        {{
+          $t(item.status ? item.status.toLowerCase().replace(/ /g, "_") : "")
+        }}
+      </p>
       <b-rate
         v-model="item.vote_average"
         :show-score="true"
@@ -98,11 +94,30 @@
         :spaced="true"
         disabled
       ></b-rate>
-      <ul>
-        <li v-for="episode in season.episode_count" :key="episode">
-          Aflevering {{ episode }}
-        </li>
-      </ul>
+      <a :href="`https://www.youtube.com/watch?v=${trailer}`" target="_blank"
+        >Trailer</a
+      >
+      <p>{{ item.overview }}</p>
+      <p v-for="genre in item.genres" :key="genre.id">{{ genre.name }}</p>
+      <div v-for="season in item.seasons" :key="season._id">
+        <h3>{{ season.name }}</h3>
+        <p>{{ season.overview }}</p>
+        <p>{{ dateUtils.formatDate(season.air_date) }}</p>
+        <b-rate
+          v-model="item.vote_average"
+          :show-score="true"
+          icon="fas fa-bone"
+          :max="10"
+          icon-pack="fas"
+          :spaced="true"
+          disabled
+        ></b-rate>
+        <ul>
+          <li v-for="episode in season.episode_count" :key="episode">
+            Aflevering {{ episode }}
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 
@@ -214,6 +229,55 @@ export default {
         .catch((error) => {
           throw new of(error);
         });
+    },
+
+    saveItem() {
+      const newItem = {
+        tmdbId: this.item.id,
+        userId: this.userService.getUserId(),
+        title: this.item.original_title,
+        tagline: this.item.tagline || "",
+        overview: this.item.overview || "",
+        releaseDate: this.item.release_date || "",
+        runtime: this.item.runtime || 0,
+        status: this.item.status || "Released",
+        watchStatus: "",
+        ownedDiscVersions: [],
+        wishlistDiscVersions: [],
+        voteAverage: this.item.vote_average || 0,
+        posterPath: this.posterPath || "https://i.imgur.com/42uQxSx.png",
+        logoPath: this.logoPath || "",
+        trailerUrl: "",
+        mediaType: "movie",
+        genres: this.item.genres.map((genre) => genre.name),
+        seasons: [],
+      };
+
+      const headers = {
+        Authorization: `Bearer ${this.userService.getToken()}`,
+      };
+
+      console.log(headers);
+
+      axios
+        .post(`${process.env.VUE_APP_API_URL}/movies`, newItem, { headers })
+        .then((response) => {
+          const data = response.data;
+          if (data !== null) {
+            this.successMessage();
+          }
+        })
+        .catch((error) => {
+          throw new of(error);
+        });
+    },
+
+    successMessage() {
+      this.$buefy.notification.open({
+        duration: 5000,
+        message: this.$t("movie_saved"),
+        type: "is-success",
+      });
     },
 
     setPosterValue(filePath) {

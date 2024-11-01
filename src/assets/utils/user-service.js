@@ -2,7 +2,9 @@ import { BehaviorSubject } from "rxjs";
 
 class UserService {
   constructor() {
-    this.usernameSubject = new BehaviorSubject(localStorage.getItem("username"));
+    this.usernameSubject = new BehaviorSubject(
+      localStorage.getItem("username")
+    );
     this.username$ = this.usernameSubject.asObservable();
 
     this.authStatusSubject = new BehaviorSubject(this.isAuthenticated());
@@ -28,6 +30,10 @@ class UserService {
 
   getToken() {
     return localStorage.getItem("token");
+  }
+
+  getUserId() {
+    return localStorage.getItem("user_id");
   }
 }
 
